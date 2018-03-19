@@ -1,0 +1,41 @@
+
+
+/* unvisited link */
+a:link {
+		color: black;
+}
+
+/* visited link */
+a:visited {
+		color: grey;
+}
+
+/* mouse over link */
+a:hover {
+		color: blue;
+}
+
+/* selected link */
+a:active {
+		color: green;
+}
+
+
+img {
+    max-width: 300px;
+    
+
+}
+
+img:hover {
+	border-radius: 50%;		
+
+}
+
+h2 {
+	color: black;
+
+
+}
+
+
