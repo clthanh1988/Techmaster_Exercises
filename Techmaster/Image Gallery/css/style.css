@@ -1,0 +1,49 @@
+* {
+	box-sizing: border-box;
+}
+#banner {
+	max-width: 1920px;
+
+
+}
+img {
+	max-width: 100%;
+}
+
+
+
+
+
+
+div.gallery {
+	padding: 5px;
+    margin: 6px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 19%;
+}
+
+div.gallery:hover {
+    border: 1px solid #777;
+}
+
+div.gallery img {
+    width: 100%;
+    height: auto;
+}
+
+div.desc {
+    padding: 15px;
+    text-align: center;
+}
+
+.wrap {
+	max-width: 1920px;
+	margin: auto;
+}
+
+.allgallery {
+	max-width: 1300px;
+	margin: auto;
+
+}
