@@ -1,0 +1,192 @@
+* { margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #36A;
+	overflow: hidden;
+
+}
+
+/* Nhóm keyframes tạo hiệu ứng tổng */
+
+
+@keyframes snow {
+
+
+
+}
+
+#wrap {
+	width: 100%;
+	margin: auto;
+	background: none;
+	font-family: verdana;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index:1;
+	animation: snow 10s linear infinite;
+}
+
+
+#main-menu {
+	width: 100%;
+	margin-top:5px;
+	margin-bottom: 10px;
+
+}
+
+.menu {
+	width: 100%;
+	height: 50px;
+
+}
+
+#main-content {
+	width: 100%;
+
+}
+
+/* Nhóm keyframes tạo hiệu ứng trong card */
+
+@keyframes changeColorBorder {
+	10%{border-color: #85c34a;}
+	20%{border-color: #53c34a;}
+	30%{border-color: #4ac379;}
+	40%{border-color: #4ac3c2;}
+	50%{border-color: #4a98c3;}
+	60%{border-color: #4a6bc3;}
+	70%{border-color: #774ac3;}
+	80%{border-color: #c34ac0;}
+	90%{border-color: #c34a89;}
+	100%{border-color: #ec330c;}
+
+
+
+
+}
+
+@keyframes textBlur {
+	from {
+    text-shadow:0px 0px 10px #fff,
+      0px 0px 10px #fff, 
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 25px #fff,
+      0px 0px 50px #fff,
+      0px 0px 50px #fff,
+      0px 0px 50px #7B96B8,
+      0px 0px 150px #7B96B8,
+      0px 10px 100px #7B96B8,
+      0px 10px 100px #7B96B8,
+      0px 10px 100px #7B96B8,
+      0px 10px 100px #7B96B8,
+      0px -10px 100px #7B96B8,
+      0px -10px 100px #7B96B8;
+  }
+
+
+
+}
+
+@keyframes dogMove {
+	  	10% {right: 20%;}
+		20% {right: 30%;}
+		30% {right: 40%;}
+		40% {right: 50%;}
+		50% {right: 60%;}
+		60% {right: 70%;}
+		70% {right: 75%;}
+		95% {right: 80%;}		
+		100% {right: 80%;opacity: 0;}		
+
+
+
+
+}
+
+#card {
+
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;	
+	position: relative;			
+	top: 10px;
+	left: 10px;
+	padding: 10px;
+	border-radius: 5px;
+	border: 4px solid red;
+	animation: changeColorBorder 5s ease infinite;
+
+}
+
+#card img {
+	width: 100%;
+	border-radius:5px;
+
+}
+
+.text {
+	width: 100%;
+	position: absolute;
+	right: -40%;
+	bottom: 31%;				
+	font-size: 1.8em;
+	animation: textBlur 0.75s ease-out infinite;
+	text-shadow: 0px 0px 5px #fff, 0px 0px 7px #fff;
+
+}
+
+h1 {
+	font-size: 60px;
+
+
+}
+
+@media screen and (max-width: 2000px) {
+	    		.text {
+	        		font-size: 2em;
+			    }
+}
+			
+@media screen and (max-width: 1400px) {
+	    		.text {
+	        		font-size: 1.5em;
+			    }
+}
+
+@media screen and (max-width: 1000px) {
+	    		.text {
+	        		font-size: 1.2em;
+			    }
+}
+
+@media screen and (max-width: 700px) {
+	    		.text {
+	        		font-size: 0.7em;
+	        		right: -45%;
+	        		bottom: 42%;
+			    }
+}
+
+.dog {
+		position: absolute;
+		right: 10px;
+		bottom: 10px;
+		animation: dogMove 10s ease-in infinite;
+				
+}
+
+
+
+
+
+
+
