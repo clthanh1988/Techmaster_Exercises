@@ -1,0 +1,151 @@
+#main-saleoff {
+	width: 100%;
+	margin-bottom: 10px;
+		
+}	
+	.each-product-saleoff {
+		width: 100%;
+		border-bottom: 2px solid blue;
+		margin-top: 10px;
+	
+	}	
+		.product-saleoff-img {
+			width: 70%;
+			float: left;
+			position: relative;
+		
+		}
+					
+			.group-pso-up {
+				width: 100%;
+			
+			} 
+			
+				.left-gpso-up {
+				 	padding-left: 10px;
+					width: 50%;
+					float: left;
+					position: relative;
+				}
+
+				.right-gpso-up {
+					padding-left: 10px;
+					width: 50%;
+					float: left;
+					position: relative;
+				}
+
+					
+			.group-pso-down {
+				width: 100%;
+			
+			}
+				
+				.left-gpso-down {
+					padding-left: 10px;
+					width: 50%;
+					float: left;
+					position: relative;
+				
+				}
+
+				.right-gpso-down {
+					padding-left: 10px;
+					width: 50%;
+					float: left;
+					position: relative;
+				
+				}
+
+				.clear {
+					clear: both;
+				}
+
+			.each-product-saleoff img {
+				width: 100%;
+		 		border-radius: 5px; 
+		
+			}
+
+
+		.product-saleoff-info {
+			width: 30%;
+			float: left;
+			position: relative;
+			padding: 10px;
+		
+		}
+
+			@keyframes image-sale {
+				from {opacity: 0};
+				to {opacity: 1};
+			
+			}
+					
+			.image-sale {
+				width: 20%;
+				position: absolute;
+				right: 15px;
+    			top: 50px;
+    			animation: image-sale 0.5s ease infinite;
+			
+			}
+					
+			.product-saleoff-info h3 {
+				text-transform: uppercase;
+				border-radius: 4px;
+				color: red;
+				background-color: #a0c6eb;
+				padding: 5px;
+			
+			}
+
+			.product-saleoff-info span {
+				display: block;
+				margin-bottom: 5px;
+				padding: 5px;
+			
+			}
+
+				span.current-cost {
+					text-decoration: line-through;
+					margin: 10px 0;
+			 	
+			 	}
+		
+				span.sale-cost {
+					color: red;
+				
+				}
+
+				.left-gpso-up:hover img {
+						opacity: 0.6;
+				}
+
+				.right-gpso-up:hover img {
+						opacity: 0.6;
+				}
+
+				.left-gpso-down:hover img {
+						opacity: 0.6;
+				}
+
+				.right-gpso-down:hover img {
+						opacity: 0.6;
+				}	
+
+
+				
+
+
+
+			.product-saleoff-des h3 {
+				width: 100%;
+				text-align: center;
+				padding-top: 10px;
+				color: red;
+
+			}
+
+		
+

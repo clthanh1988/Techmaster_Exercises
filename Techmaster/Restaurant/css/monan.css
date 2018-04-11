@@ -1,0 +1,122 @@
+span {
+	display: block;
+}
+
+#food-list {
+	width: 100%;
+	margin-bottom: 10px;
+	/* border-bottom: 5px solid red; */
+			
+}	
+			
+	.lunch {
+		width: 100%;
+
+	}
+				
+		.lunch h2 {
+			margin-top: 15px;
+			margin-bottom: 10px;
+			text-align: center;
+			color: red;
+
+		}
+
+		.content-food {
+			border-bottom: 2px solid blue;
+			border-bottom-right-radius: 5px;
+			border-bottom-left-radius: 5px; 
+
+		}
+			.each-food {
+				text-align: center;
+				width: 25%;
+				padding: 5px;
+				float: left;
+			}
+
+				.img-food {
+					margin-bottom: 5px;
+					overflow: hidden;
+					border-radius: 5px;
+
+				}
+
+				.each-food img {
+					width: 100%;
+				}
+
+				.each-food:hover img {
+					border-radius: 5px;
+					transform: scale(1.5);
+					transition: transform 1s linear;
+
+				}
+
+
+	.funfood {
+		width: 100%;
+
+	}
+	
+		.funfood h2 {
+			margin-top: 15px;
+			margin-bottom: 10px;
+			text-align: center;
+			color: red;
+
+		}	
+
+	.drink {
+		width: 100%;
+
+	}
+		.drink h2 {
+			margin-top: 15px;
+			margin-bottom: 10px;
+			text-align: center;
+			color: red;
+
+		}
+
+	.dessert {
+		width: 100%;
+
+	}
+		.dessert h2 {
+			margin-top: 15px;
+			margin-bottom: 10px;
+			text-align: center;
+			color: red;
+
+		}
+
+	.home_made {
+		width: 100%;
+
+	}
+		.home_made h2 {
+			margin-top: 15px;
+			margin-bottom: 10px;
+			text-align: center;
+			color: red;
+
+	}
+
+	.streetfood {
+		width: 100%;
+
+	}
+		.streetfood h2 {
+			margin-top: 15px;
+			margin-bottom: 10px;
+			text-align: center;
+			color: red;
+
+	}	
+
+					
+
+
+
+
