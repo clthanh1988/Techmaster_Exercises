@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<p>Thực hành Vòng lặp</p>
+
+<script> // BT1: Tính giai thừa
+
+	function giaiThua(n) {
+		var giaithua = 1;
+		for (var i=1; i<= n; i= i + 1) {
+			giaithua = giaithua * i;
+
+		}
+
+		return giaithua;
+
+	}
+	
+
+
+</script>
+
+
+<script> // BT2 : Hàm đảo ngược chuỗi
+
+	function reverseString(str) {
+
+		var leng = str.length;
+		var newStr = "";
+		for (var i = leng; i >= 0; i = i - 1) {
+			newStr = newStr + str.substr(i, 1);
+
+		}
+
+		return newStr;
+
+	}
+	
+
+
+</script>
+
+<script> // BT3 : Hàm Duplicate 10 lần
+
+	function duplicate(str) {
+		
+		var newStr = "";
+		for (var i =1; i <= 10; i = i +1) {
+			newStr = newStr + str + "-";
+
+		}
+
+		return newStr.slice(0, newStr.length-1);
+
+	}
+	
+
+
+
+</script>
+
+<script> // BT4 : Sắp xếp tên học sinh
+
+		function studentNameSort(studentName) { 
+	
+			console.log(studentName);
+			studentName.sort(function(a, b) {
+        
+        		if (a.toLowerCase() < b.toLowerCase()) {return -1;}
+        		if (a.toLowerCase() > b.toLowerCase()) {return 1;}
+        		return 0;
+    
+    		});
+	
+			var leng = studentName.length;
+			for (var i=1; i <= leng; i = i +1){
+
+				document.write("<p>" + i + ". " + studentName[i-1] + "</p>");
+
+			}
+
+			
+			return studentName;
+	
+		}
+
+
+
+
+</script>
+
+<script> // BT5 : Tăng gấp đôi giá trị các số trong mảng
+
+		function doubleUp(arr){
+			// var arr = [] == SAI ????
+			
+			var newArr = [];
+
+			var leng = arr.length;
+			
+			for (var i =1; i <= leng ; i = i +1){
+				newArr[i-1] = arr[i-1]*2;
+				
+			}
+
+			return newArr;
+
+			document.write(newArr);
+
+		}
+
+
+
+</script>
+
+<script> // BT6 : Tạo mảng số dư
+
+		function soDu(arr) {
+
+			var newArr = [];
+
+			var leng = arr.length;
+
+			for (var i =1; i <= leng ; i = i +1){
+				newArr[i-1] = arr[i-1] % 2;
+				
+			}
+
+			return newArr;
+
+			document.write(newArr);
+
+
+		}
+	
+
+
+
+</script>
+
+</body>
+</html>
