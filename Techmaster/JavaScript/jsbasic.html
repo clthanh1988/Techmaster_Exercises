@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Bài tập JS</p>
+
+
+
+<script> // BT1 : Tính bình phương
+
+ function binhPhuong(x) {
+    
+    return x*x;
+}
+
+ 		// BT2 : Tính bình phương 	
+
+ function squareNumber(a,b,c){
+ 	return binhPhuong(a*3+2*b-c);
+ }
+
+
+</script>
+
+
+
+<script> // BT3 : Cắt chuỗi
+	
+	function stringCut(str) {
+	var str;
+	var res = str.substr(0,9);
+	res = res + "...";
+	document.write(res);
+	return res;
+
+} 
+
+
+
+</script>
+
+<script> // BT4 : Viết hoa kí tự đầu tiên của chuỗi
+
+	function jsUcfirst(str) {
+	var firstLetter = str.charAt(0);
+	var uppercaseFirstLetter = str.charAt(0).toUpperCase();
+	var stringWithoutFirstLetter = str.slice(1);
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+	
+
+
+
+</script>
+
+<script> // BT5 : Lấy ra số nhỏ nhất trong mảng
+
+ 	
+    /* function minInNumbers(arr) {
+        return Math.min(...arr);
+    } 
+       Cách này xịn !!!
+    */
+    
+     // var score;
+    function minInNumbers(score) {
+    	
+    	// var newScore = score.sort(function(a, b){return a - b});
+    	// return newScore[0]; 
+
+    	return score.sort(function(a, b){return a - b})[0];
+
+    }
+    
+
+</script>
+
+<script> // BT6 : Sắp xếp mảng
+
+	
+	
+	function studentNameSort(studentName) { 
+	
+	console.log(studentName);
+	studentName.sort(function(a, b) {
+        
+        if (a.toLowerCase() < b.toLowerCase()) {return -1;}
+        if (a.toLowerCase() > b.toLowerCase()) {return 1;}
+        return 0;
+    
+    });
+	
+	document.write(studentName);
+	return studentName;
+	
+		// Sau return là dừng hết !!!
+	}
+	
+</script>
+
+<script> // BT7 : What they sey
+
+	var teacher = {
+  		firstName: "Kim",
+  		lastName: "Dung",
+  		age: 40,
+  		say: function(){}
+}
+
+	var student = {
+  		firstName: "Lapthanh",
+  		lastName: "Chu",
+  		age: 29,
+  		say: function(){}
+}
+	
+	var parent = {
+  		firstName: "ChiMinh",
+  		lastName: "Ho",
+  		age: 130,
+  		say: function(){}
+}
+
+
+	function aboutMe(){
+  		document.write("Xin chào tôi là " + this.firstName + this.lastName + ". Năm nay tôi " + this.age + " tuổi");
+}
+
+
+
+teacher.say = aboutMe;
+teacher.say();
+
+
+student.say = aboutMe;
+student.say();
+
+parent.say = aboutMe;
+parent.say();
+
+
+
+</script>
+
+
+</body>
+</html>
