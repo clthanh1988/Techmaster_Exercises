@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<p>Thực hành Điều kiện - Rẽ nhánh 1</p>
+
+<script> // BT1 : 
+
+	
+	function soSanh(a,b) {
+
+
+	if (typeof a == "number" && typeof b == "number" ) {
+		if (a < b) { document.write("Số lớn hơn là :" + b)}
+
+		if (a > b) { document.write("Số lớn hơn là :" + a)}
+
+		if (a == b) { document.write("2 số có giá trị bằng nhau")}
+	}
+
+	else { document.write("Không thực hiện được phép so sánh")}
+
+	}
+
+</script>
+
+<script> // BT2 :
+
+	function giaiThua(n) {
+		
+		if (Number.isInteger(n) == true && n >= 0) {
+			var giaithua = 1;
+			for (var i=1; i<= n; i= i + 1) {
+			giaithua = giaithua * i;
+
+			}
+
+		return giaithua;
+
+		}
+
+		else {document.write("Đầu vào không phải là 1 số nguyên dương")}
+
+
+		
+
+	}
+
+
+</script>
+
+<script> // BT3 :
+
+	function laySoChan(arr)	{
+
+		var newArr = [];
+		leng = arr.length;
+
+		for (i = 1; i <= leng; i = i +1) {
+			
+			if (arr[i-1] % 2 == 0) {
+				newArr.push(arr[i-1])
+			} 
+			
+		}
+		// Return lúc đầu để trong for làm dừng vòng lặp, phải để sau for cuối function
+
+		document.write(newArr.sort(function(a, b){return b - a}));
+		return newArr.sort(function(a, b){return b - a});
+		
+
+	}
+
+
+</script>
+
+<script> // BT4 :
+
+	function validateForm(user) {
+		// var user gán = rỗng là SAI, máy sẽ hiểu nó là Rỗng
+
+
+		var userName = user.username;
+		var passWord = user.password;
+		var conFirm = user.confirm;
+
+		if (userName == "" || userName.length > 20){
+			document.write("Username không hợp lệ" + "<br/>")
+		}
+		else {
+			if (passWord.length < 6 || passWord.length > 32 ){
+				document.write("Password không hợp lệ" + "<br/>")
+			}
+			else {
+				if (passWord != conFirm){
+					document.write("Password và Confirm không giống nhau" + "<br/>")
+				}
+				else {
+					document.write("Chúc mừng bạn đã đăng kí thành công" + "<br/>")
+				}
+
+			}
+
+
+		}
+
+
+
+	}	
+	
+
+
+
+
+</script>
+
+</body>
+</html>
