@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<p>Thực hành Điều kiện - Rẽ nhánh 2</p>
+
+<script> // BT1 : 
+
+	var now = new Date();
+	var date = now.getDate(); 
+	var month = now.getMonth() + 1;
+	var year = now.getFullYear();
+
+	for (var i=1; i <= month; i = i + 1) {
+		var season;
+		if (i == 1 || i == 2 || i == 3){
+			season = "mùa xuân."
+		}
+
+		else if (i == 4 || i == 5 || i == 6){
+			season = "mùa hạ."
+		}
+
+		else if (i == 7 || i == 8 || i == 9){
+			season = "mùa thu."
+		}
+
+		else {
+			season = "mùa đông."
+		}
+	}	
+
+	document.write("Hôm nay là ngày " + date + " tháng " + month + " năm " + year + ". Đang là " + season)
+	
+	
+
+</script>
+
+<script> // BT2 : 
+
+	// LƯU Ý : Khi nhập trong console phải đúng dạng của biến, không đúng dạng sẽ k chạy function
+
+
+	function stringCut(str) {
+		
+		var newStr = "";
+		if (typeof str != "string" && typeof str != "number"){
+			document.write("Đầu vào không phải là 1 chuỗi" + "<br/>")
+		}
+		else if (typeof str == "number"){
+			str = str.toString()
+		}
+
+		if (str.length <= 10) {
+			newStr = str
+		}
+
+		else {
+			newStr = str.substr(0,10) + "..."
+		}
+
+		document.write(newStr + "<br/>");
+		return(newStr);
+	}
+	
+
+
+</script>
+
+<script> // BT3 : 
+
+	function chuyenDiem(x) {
+		console.log(x);
+		var ketQua;
+		if (typeof x != "number") {
+			document.write("Điểm số nhập vào không hợp lệ" + "<br/>")
+		}
+		else if (x <0 || x > 10) {
+			document.write("Yêu cầu nhập lại điểm số trong khoảng từ 0-10" + "<br/>")
+		}
+
+		else {
+			if (x >= 0 && x < 4) {
+				ketQua = "F"
+			}
+		
+			else if (x >=4 && x <5.5) {
+				ketQua = "D"
+			}
+
+			else if (x >= 5.5 && x < 7) {
+				ketQua = "C"
+			}
+
+			else if (x >= 7 && x < 8.5) {
+				ketQua = "B"
+			}
+
+			else {
+				ketQua = "A"
+			}
+		
+		document.write("Điểm số của học sinh là " + ketQua + "<br/>");	
+		
+		return ketQua;
+
+		}
+		
+			
+	}
+	
+
+</script>
+
+<script> // BT4 :
+	
+	// Dùng bảng mã điện thoại quốc gia 
+
+	function translate(x) {
+		var x;
+		switch (x) {
+			// Russia
+			case 7 :
+				document.write("Hello - Здравствуйте - Xin Chào" + "<br/>")
+				break;
+			
+			// Germany		
+			case 49 :
+				document.write("Hello - Hallo - Xin Chào" + "<br/>")
+				break;
+			
+			// Greece		
+			case 30 :
+				document.write("Hello - Χαίρετε - Xin Chào" + "<br/>")
+				break;
+			
+			// Portugal		
+			case 351 :
+				document.write("Hello - Olá - Xin Chào" + "<br/>")
+				break;
+			
+			// Italia		
+			case 39 :
+				document.write("Hello - Ciao - Xin Chào" + "<br/>")
+				break;								
+
+			default :
+				document.write("Hello --- Xin Chào" + "<br/>")
+				break; 
+
+		}
+
+	} 
+	
+
+</script>
+
+<script> // BT5 :
+	
+	// Lưu ý: arr[i] == true chứ k phải "true" (giá trị chứ k phải kiểu)
+	
+	function checkArr(arr) {
+		
+		leng = arr.length;
+		for (var i = 0; i < leng; i = i +1){
+			if (arr[i] == true){
+				break;
+			}
+		
+		}
+		document.write("Giá trị True xuất hiện lần đầu trong mảng ở vị trí arr[" + i +"]" + "<br/>")
+
+	}
+	
+
+</script>
+
+<script> // BT6 :
+
+	// Lưu ý : Trong trường hợp ngoặc lồng ngoặc phải sử dụng kết hợp "" và ''
+
+
+	function printNumbers(){
+
+		for (var i = 1; i <= 100; i = i +1) {
+			if (i % 2 == 0){
+				document.write("<p style='color:blue'>" + i + "</p>")
+			}
+
+			else if(i % 2 != 0) {
+				document.write("<p style='color:red'>" + i + "</p>")
+			}
+
+
+
+		}
+
+
+	}
+
+
+
+
+
+</script>
+
+</body>
+</html>	
