@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<p>Bài tập vẽ hình</p>
+
+<script> // BT1 :
+
+	function printTriangle(n) {
+		var str = "";
+		for (var i = 1; i <= n ; i = i + 1){
+			for (var j = 0; j < i; j = j + 1){
+				str = str + " * "
+
+			}
+
+
+			str = str + "</br>";
+		}
+
+
+	return str;
+
+	}
+
+</script>
+
+<script> // BT2 :
+	
+	// Lưu ý : Cân chỉnh kích thước của * và khoảng trắng
+
+	function printEmptyRectangle(a, b) {
+		var str = "";
+		for (var i = 1; i <= b; i = i + 1) {
+			for (var j = 1; j <= a; j = j + 1) {
+				if (i == 1 || i == b || j == 1 || j == a){
+					str = str + "* "
+				}
+
+				else {
+					str = str + "&nbsp;&nbsp;&nbsp;"
+				}
+				
+
+			}
+
+		str = str + "<br/>";	
+
+
+		}
+
+
+	return str;	
+
+	}
+
+
+</script>
+
+<script> // BT3 :
+
+	function printSpecialTriangle(n) {
+		var str = "";
+		a = (2*n - 1);
+		for (var i = 1; i <= n; i = i + 1) {
+			for (var j = 1; j <= a; j = j + 1) {
+				if (i == 1 ){
+					str = str + "* "
+				}
+				else if (j < i || j > a + 1 - i){
+					str = str + "&nbsp;&nbsp;&nbsp;"
+				}
+
+				else {
+					str = str + "* "
+
+				}
+			}
+			
+			
+
+
+		str = str + "</br>";
+
+		}
+
+	return str;	
+
+	}
+
+
+</script>	
+
+
+<script> // BT4 :
+
+	function printX(n) {
+		var str = "";
+		for (var i = 1; i <= n; i = i + 1){
+			for (var j = 1; j <=n; j = j +1) {
+				if (i == j) {
+					str = str + "* "
+				}
+
+				else if (i + j != n + 1) {
+					str = str + "&nbsp;&nbsp;&nbsp;"
+				}
+			
+				else {
+					str = str + "* "
+				}
+			}
+
+
+
+
+		str = str + "<br/>";	
+		}
+
+
+	return str;
+
+	}
+
+</script>
+
+<script> // BT5 :
+
+	function printButterfly(n) {
+		var str = "";
+		for (var i = 1; i <= n; i ++){
+			for (var j = 1; j <= n; j ++) {
+				a = j - i;
+				b = j + i;
+				c = i - j;
+
+				if (i < (n+1)/2) {
+					if (a <= 0 || b >= n + 1) {
+						str = str + "* "
+					}
+
+					else {
+					 	str = str + "&nbsp;&nbsp;&nbsp;"
+					}
+				}
+
+				else if (i > (n+1)/2) {
+					if (c <= 0 || b <= n + 1) {
+						str = str + "* "
+					}
+
+					else {
+						str = str + "&nbsp;&nbsp;&nbsp;"
+					}
+
+				}
+			
+				else {
+					str = str + "* "
+				}
+			}
+
+
+			
+		str = str + "<br/>"
+		}
+
+	return str;
+	}
+	
+
+
+
+
+</script>
+</body>
+</html>	
