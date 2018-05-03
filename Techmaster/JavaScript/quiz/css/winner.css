@@ -1,0 +1,19 @@
+* {
+	padding:0;
+	margin: 0;
+	box-sizing: border-box;
+}
+body {
+	background-image: url(../img/bg.jpg);
+	background-repeat: repeat;
+}
+	
+#wrap {
+	border-radius: 5px;
+	width: 800px;
+	margin: 150px auto;
+	background-color: rgba(255, 255, 255, 0);
+	height: 520px;
+	border: 3px solid #3c612a;
+	text-align: center;
+}
