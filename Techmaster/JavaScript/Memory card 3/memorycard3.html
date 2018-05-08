@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Memory cards 3</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/memorycard3.css">
+</head>
+<body>
+	<div class="wrap">
+		
+		<div class="timer"> 
+			<div class="progressbar" style="display: none"> 
+				<progress value="100" max="100"></progress>
+			</div>
+
+		</div>
+		
+		<div class="content">	
+			
+
+		</div>
+	
+	</div>
+
+
+	<div class="mode begin">
+	    <div class="dialog">
+	        <h1>Defense of the Ancient</h1>
+	        <h2>Choose play mode</h2>
+	        <button class="btn btn-start normal" onclick="startGame(1)">Normal</button>
+	        <button class="btn btn-start hard" onclick="startGame(2)">Hard</button>
+	    </div>
+	</div>
+
+	<div class="mode win">
+	    <div class="dialog">
+	        <img src="img/victory.jpg"/>
+	        <h1>
+	        	Congratulations !!!<br/>
+	        	<button class="btn btn-reset" onclick="loadContent()">Play again</button>
+	        </h1>
+	    </div>
+	</div>
+
+	<div class="mode lose">
+	    <div class="dialog">
+	        <img src="img/lose2.jpg"/>
+	        <h1>
+	            Game over !!!<br/>
+            	<button class="btn btn-reset" onclick="loadContent()">Play again</button>
+        	</h1>
+    	</div>
+	</div>
+
+	<div class="mode-backdrop"></div>
+
+	<audio id="bg-music">
+    	<source src="audio/bg.mp3" type="audio/mpeg">
+	</audio>
+
+	<audio id="flip-sound">
+    	<source src="audio/flip.wav" type="audio/mpeg">
+	</audio>
+
+	<audio id="incorrect-sound">
+    	<source src="audio/wrong.wav" type="audio/mpeg">
+	</audio>
+
+	<audio id="correct-sound">
+    	<source src="audio/right.wav" type="audio/mpeg">
+	</audio>
+
+	<audio id="count10-sound">
+    	<source src="audio/count10.wav" type="audio/mpeg">
+	</audio>
+
+	<audio id="count5-sound">
+    	<source src="audio/count5.wav" type="audio/mpeg">
+	</audio>
+
+	<audio id="win-sound">
+    	<source src="audio/victory.wav" type="audio/mpeg">
+	</audio>
+
+	<audio id="lose-sound">
+    	<source src="audio/lose.wav" type="audio/mpeg">
+	</audio>
+
+
+	<script src="../jquery-3.3.1.min.js"></script>
+	<script src="js/memorycard3.js"></script>
+
+
+
+
+
+</body>
+</html>
