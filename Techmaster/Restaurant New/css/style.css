@@ -1,0 +1,267 @@
+* {
+	
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: Andika; 
+}
+
+ul,li {
+	text-align: center;
+	list-style-type: none;
+	display: block;
+}
+
+a {
+	
+	text-decoration: none;
+	color: blue;
+}
+
+a:hover {
+	color: #673ab7;
+}
+
+#wrap {
+	width: 1000px;
+	margin: 5px auto;
+	background-color: #e9e7f1e6;
+}
+
+		#main-menu {
+			background-color: #fdf7de;
+			width: 100%;
+			margin-bottom: 10px;
+			border-bottom: 5px solid red;
+
+		}
+
+    		.logo {
+    	
+    	
+    				padding: 5px;
+    				width: 20%;
+    				float: left;
+
+			}
+    	 	
+    	 		.logo img {
+    	 				width: 100%;
+		
+				}
+				.clear {
+					clear: both;
+				}
+    		
+    		.menu {
+					width: 80%;
+					float: left;
+					padding-top: 5px;
+
+			}
+
+
+				/* ul.menu {
+						width: 100%;
+						padding: 10px;
+				} */
+			
+				li.menu-item {
+						/* font-family: Arimo; */
+						border-right: 2px solid red;
+						text-transform: uppercase;
+						width: 20%;
+						float: left;
+						height: 50px;				
+
+				}
+
+				 .fanpage {
+				    border-style: none!important;
+				    /*border-style: none;*/
+				   /*border:5px solid black;*/
+				   /* fanpage kế thừa từ menu-item CHA nên hiện cả 2, phải cho !important vào */
+				}
+				li.monan {
+					position: relative;
+				}
+				li.monan:hover ul.mini-menu {
+					display: block;
+					z-index: 1;
+				}
+
+				ul.mini-menu {
+					top: 30px;
+    				left: 30px;
+					padding: 5px;
+					background-color: #90cd83;
+					margin-top: 20px;
+					display: none;
+					position: absolute;
+				}
+			
+				li.mini-menu {
+					padding: 2px;
+				}
+
+		#specialoffer {
+			width: 100%;
+			border-bottom: 5px solid red;
+		}
+
+
+
+			.sale {
+				padding-right: 5px;
+				
+				width: 70%;
+				float: left;
+			}
+
+				.group-sale-up {
+					width: : 100%;
+				}
+
+					.left-group-sale-up {
+						
+						padding-left: 10px;
+						width: 50%;
+						float: left;
+						position: relative;
+					}
+
+					.right-group-sale-up {
+						padding-right: 5px;
+						padding-left: 5px;
+						width: 50%;
+						float: left;
+						position: relative;
+					}
+
+				.group-sale-down {
+					width: 100%;
+				}
+
+					.left-group-sale-down {
+						padding-left: 10px;
+						width: 50%;
+						float: left;
+						position: relative;
+					}
+
+					.right-group-sale-down {
+						padding-right: 5px;
+						padding-left: 5px;
+						width: 50%;
+						float: left;
+						position: relative;
+					}
+
+						.value-sales {
+							position: absolute;
+							bottom: 5px;
+							right: 5px;
+						}
+						
+						.value-sales img {
+							width: 50px;
+						}
+
+						@keyframes sale{
+							from {opacity: 0};
+							to {opacity: 1};
+
+						}
+				
+						.sale50 img {
+							width: 70px!important;
+						}
+
+						.sale50 {
+							animation: sale 0.5s linear infinite;
+						}
+
+
+			.advertise {
+				padding-right: 5px;
+				padding-left: 5px;
+				width: 30%;
+				float: left;
+			}
+
+			.advertise img {
+				height: 500px;
+			}
+
+		img	{
+			width: 100%;
+			border-radius: 5px;
+		}
+
+
+		/* #specialoffer img:hover {
+			opacity: 0.6;
+		} ( Nếu bao tất như thế này khi di chuột vào sẽ tính toàn bộ khung SpecOff như 1 ảnh ) */
+
+					.left-group-sale-up:hover img {
+						opacity: 0.6;
+					}
+
+					.right-group-sale-up:hover img {
+						opacity: 0.6;
+					}
+
+					.left-group-sale-down:hover img {
+						opacity: 0.6;
+					}
+
+					.right-group-sale-down:hover img {
+						opacity: 0.6;
+					}
+
+					.advertise:hover img {
+						opacity: 0.6;
+					}
+
+
+		#introduce {
+			padding: 10px 5px;
+			width: 100%;
+			border-bottom: 5px solid red;
+		}
+			.welcome {
+				margin-bottom: 15px;
+				color: red;
+				text-align: center;
+			}
+
+			@keyframes debutRestaurant {
+				from {opacity: 0};
+				to {opacity: 1};
+			}
+
+			h2 span {
+				animation: debutRestaurant 0.5s linear infinite;
+			}
+			
+		.copyright {
+
+			text-align: center;
+			margin-top: 20px;
+			font-size: 1.2em;
+		}
+		
+
+		#backtotop {
+			position: fixed;
+			right: 30px;
+			bottom: 30px;
+	
+		}
+
+i {
+	padding-right: 5px;
+}
+
+
+

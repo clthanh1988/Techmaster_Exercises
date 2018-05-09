@@ -1,0 +1,105 @@
+* {
+	
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	/* font-family: ; */
+}
+
+ul,li {
+	text-align: center;
+	list-style-type: none;
+	display: block;
+}
+
+a {
+	
+	text-decoration: none;
+	color: blue;
+}
+
+a:hover {
+	color: #673ab7;
+}
+
+#wrap {
+	width: 1000px;
+	margin: 5px auto;
+	background-color: #e9e7f1e6;
+}
+
+		#main-menu {
+			background-color: #fdf7de;
+			width: 100%;
+			margin-bottom: 10px;
+			border-bottom: 5px solid red;
+
+		}
+
+    		.logo {
+    	
+    	
+    				padding: 5px;
+    				width: 20%;
+    				float: left;
+
+			}
+    	 	
+    	 		.logo img {
+    	 				width: 100%;
+		
+				}
+				.clear {
+					clear: both;
+				}
+    		
+    		.menu {
+					width: 80%;
+					float: left;
+					padding-top: 5px;
+
+			}
+
+
+				/* ul.menu {
+						width: 100%;
+						padding: 10px;
+				} */
+			
+				li.menu-item {
+						/* font-family: Arimo; */
+						border-right: 2px solid red;
+						text-transform: uppercase;
+						width: 20%;
+						float: left;
+						height: 50px;				
+
+				}
+
+				 .fanpage {
+				    border-style: none!important;
+				    /*border-style: none;*/
+				   /*border:5px solid black;*/
+				   /* fanpage kế thừa từ menu-item CHA nên hiện cả 2, phải cho !important vào */
+				}
+				li.monan {
+					position: relative;
+				}
+				li.monan:hover ul.mini-menu {
+					display: block;
+					z-index: 1;
+				}
+
+				ul.mini-menu {
+					top: 30px;
+    				left: 30px;
+					padding: 5px;
+					background-color: #90cd83;
+					margin-top: 20px;
+					display: none;
+					position: absolute;
+				}
+			
+				li.mini-menu {
+					padding: 2px;
+				}
