@@ -1,0 +1,45 @@
+* {
+	box-sizing: border-box;
+}
+
+.wrap {
+	width: 400px;
+	margin: 0 auto;
+}
+
+h1 {
+	text-align: center;
+
+}
+
+.registerForm {
+	text-align: center;
+
+}
+
+.textInput input {
+	height: 40px;
+	width: 250px;
+	margin-bottom: 10px;
+}
+
+.birthInput {
+	margin: 0 auto;
+	width: 250px;
+
+}
+
+.birthyear, .birthmonth, .birthday {
+	width: 33.33%;
+	float: left;
+}
+
+.clear {
+	clear: both;
+}
+
+.genderInput {
+	text-align: center;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
