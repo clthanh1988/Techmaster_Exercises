@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<title>Register form</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="css/register.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+		<link href="https://fonts.googleapis.com/css?family=Andika" rel="stylesheet">
+
+</head>
+		
+<body>
+		<div class="wrap">
+			<h1>Đăng ký thành viên</h1>
+			<div id="registerForm">
+				<form method="get" action="result.html" >
+					
+					<div class="full-name width-div error">
+
+						<input type="text" class="heightInput width-ip" name="fullname" id="full-name" placeholder="Họ tên" /></br>
+						<div class="test2">
+							<span class="error1"></span>
+									
+						</div>
+						<div class="err">
+							<i class="fas fa-exclamation-circle"></i>
+						</div>
+					</div>
+						
+					<div class="e-mail width-div error">
+						<input type="text" class="heightInput width-ip" name="email" id="email" placeholder="Email" /></br>
+						<div class="test2">
+							<span class="error1"></span>
+										
+						</div>
+						<div class="err">
+							<i class="fas fa-exclamation-circle"></i>
+						</div>
+					</div>
+
+					<div class="add-ress width-div error">
+						<input type="text" class="heightInput width-ip" name="address" id="address" placeholder="Địa chỉ" /></br>
+						<div class="test2">
+							<span class="error1"></span>
+										
+						</div>
+						<div class="err">
+							<i class="fas fa-exclamation-circle"></i>
+						</div>
+					</div>
+						
+					<div class="p-hone width-div error">
+						<input type="text" class="heightInput width-ip" name="phone" id="phone" placeholder="Số điện thoại" /></br>
+						<div class="test2">
+							<span class="error1"></span>
+										
+						</div>
+						<div class="err">
+							<i class="fas fa-exclamation-circle"></i>
+						</div>
+					</div>
+
+					<div class="fb-address width-div error">
+						<input type="text" class="heightInput width-ip" name="fbaddress" id="fbaddress" placeholder="Địa chỉ Facebook" /></br>
+						<div class="test2">
+							<span class="error1"></span>
+										
+						</div>
+						<div class="err">
+							<i class="fas fa-exclamation-circle"></i>
+						</div>
+					</div>
+						
+					<div class="birthInput width-div error">
+						<div>
+							
+							<select class='birthyear' name="birthyear" id="birthyear">
+					
+
+							</select>
+										
+				
+							<select class='birthmonth' name="birthmonth" id="birthmonth">
+									
+				
+							</select>
+										
+				
+							<select class='birthday' name="birthday" id="birthday">
+									
+				
+							</select>
+
+						</div>
+						
+
+						<div class="test2">
+							<span class="error1"></span>
+										
+						</div>
+						<div class="err">
+							<i class="fas fa-exclamation-circle"></i>
+						</div>
+					
+					</div>
+						
+					<div class="clear"></div>
+
+					<div class="sex error" id="sex" >
+						<div class="sex-div">
+							<span class="female">
+								<input type="radio" onclick="check()" value="Nữ" class="sex" name="sex" id="female">
+								<label class="sex" for="female">Nữ</label>
+							</span>
+							<span class="male">
+								<input type="radio" onclick="check()" value='Nam' class="sex" name="sex" id="male">
+								<label class="sex" for="male">Nam</label>
+							</span>
+						</div>               
+								
+						<div class="test2">
+							<span class="error1"></span>
+								
+						</div>
+						
+						<div class="err">
+						 	<i class="fas fa-exclamation-circle"></i>
+						</div>
+					</div>
+
+					
+					<div class="password width-div error">
+						<input type="password" class="heightInput width-ip" name="password" id="password" placeholder="Mật khẩu" /></br>
+						<div class="test2">
+							<span class="error1"></span>
+										
+						</div>
+						<div class="err">
+							<i class="fas fa-exclamation-circle"></i>
+						</div>
+					</div> 	
+						
+					<div class="clear"></div>	
+					<div class="test1">
+						<input class="heightInput submitA"  type="submit" value="Register">
+						
+					</div>
+				
+					
+				
+
+
+
+
+
+				</form>
+
+			</div>
+
+
+		</div>
+
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="js/register.js"></script>
+</body>
+</html>

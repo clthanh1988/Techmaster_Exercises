@@ -1,0 +1,131 @@
+* {
+	box-sizing: border-box;
+}
+
+.wrap {
+	width: 400px;
+	margin: 0 auto;
+}
+
+h1 {
+	text-align: center;
+
+}
+
+.registerForm {
+	text-align: center;
+	margin: auto;
+
+}
+
+.registerForm div {
+	margin-bottom: 10px;
+
+}
+
+.heightInput {
+	height: 40px;
+	border-radius: 5px;
+	font-size: 18px;
+	padding: 8px 10px;
+	border:1.5px solid #bdc7d8;
+	
+}
+
+.width-div{
+	width: 100%;
+	margin: auto;
+}
+
+.width-ip {
+	width: 100%;
+
+}
+
+
+.birthInput {
+	margin: 0 auto;
+	width: 350px;
+
+}
+
+select {
+	width: 15%;
+	height: 30px;
+}
+
+label {
+	font-size: 18px;
+}
+
+span {
+	padding: 5px;
+}
+
+div.sex span {
+	padding: 5px;
+}
+
+.birthyear, .birthmonth, .birthday {
+	width: 33.33%;
+	float: left;
+}
+
+.clear {
+	clear: both;
+}
+
+.sex {
+	text-align: center;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+select {
+	border: 1px solid #bdc7d8;
+	font-size: 13px;
+	height: 30px;
+	padding: 5px; 
+	align-items: center;
+	white-space: pre;
+	color: black;
+	background-color: white;
+	cursor: default;  
+   }
+
+   .submitA {
+	background: linear-gradient(#67ae55, #578843);
+	background-color: #69a74e;
+	box-shadow: inset 0 1px 1px #a4e388;
+	border-color: #3b6e22 #3b6e22 #2c5115;
+	border: 1px solid;
+	border-radius: 5px;
+	color: #fff;
+	cursor: pointer;
+	display: inline-block;
+	letter-spacing: 1px;            
+	text-shadow: 0 1px 2px rgba(0,0,0,.5);
+	width: 30%;
+   }
+
+div.error {
+	position: relative;
+}
+.err {
+	display: none;
+	position: absolute;
+	top:5px;
+	right: 5px;
+	font-size: 1.5em;
+	
+	color: rgba(255, 0, 0, 0.735);
+}
+.test1 {
+	text-align: center;
+}
+.test2 {
+	padding: 5px;
+	font-size: 0.9em;
+	font-style: italic;
+	color: rgb(79, 0, 255);
+}
