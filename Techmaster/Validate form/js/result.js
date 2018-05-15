@@ -29,7 +29,7 @@ $('.info').append('<h3>Họ tên: <span>' + registerInfo['userName'] + '</span><
 $('.info').append('<h3>Email: <span>' + registerInfo['email'] + '</span></h3>')
 $('.info').append('<h3>Địa chỉ: <span>' + registerInfo['address'] + '</span></h3>')
 $('.info').append('<h3>Số điện thoại: <span>' + registerInfo['phoneNumber'] + '</span></h3>')
-$('.info').append('<h3>Địa chỉ: <span>' + registerInfo['fbAddress'] + '</span></h3>')
+$('.info').append('<h3>Địa chỉ Facebook: <span>' + registerInfo['fbAddress'] + '</span></h3>')
 $('.info').append('<h3>Ngày sinh: <span>' + registerInfo['birthDate'] + '</span></h3>')
 $('.info').append('<h3>Giới tính: <span>' + registerInfo['sex'] + '</span></h3>')
 $('.info').append('<h3>Mật khẩu: <span>' + registerInfo['passWord'] + '</span></h3>')
