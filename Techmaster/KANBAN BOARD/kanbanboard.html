@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>Kanban board</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-center">
+        <a class="navbar-brand" href="#">Kanban board</a>
+
+    </nav>
+    <section class="container" id="main-content">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>TO DO <span class="count">(0)</span></h5>
+                    </div>
+                    <div class="collection sorted-list" id="todo">
+                        
+                    </div>
+                    <div class="action row">
+                        <div class="input-field col s12">
+                            <input id="new_job_todo" type="text" onkeydown="app.newJob(event, 'todo', this)"  placeholder="New job">
+                            <label for="new_job_todo"></label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>DOING <span class="count">(0)</span></h5>
+                    </div>
+                    <div class="collection sorted-list" id="doing">
+                        
+                    </div>
+                    <div class="action row">
+                        <div class="input-field col s12">
+                            <input id="new_job_doing" type="text" onkeydown="app.newJob(event, 'doing', this)"  placeholder="New job">
+                            <label for="new_job_doing"></label>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>DONE <span class="count">(0)</span></h5>
+                    </div>
+                    <div class="collection sorted-list" id="done">
+                        
+                    </div>
+                    <div class="action row">
+                        <div class="input-field col s12">
+                            <input id="new_job_done" type="text" onkeydown="return app.newJob(event, 'done', this)"  placeholder="New job">
+                            <label for="new_job_done"></label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+    </section>
+
+    <!-- Modals -->
+    <div id="modal-confirm" class="modal">
+        <div class="modal-content">
+            <h4>Confirm Delete</h4>
+            <p>Are you sure to delete this job?</p>
+        </div>
+    
+        <div class="modal-footer">
+            <a href="#!" class="modal-action btn btn-warning" id="btn-delete"> Agree </a>
+            <a href="#!" class="modal-action btn btn-light" id="btn-cancel"> Cancel</a>
+        </div>
+    </div>
+    
+    <div id="modal-alert" class="modal">
+        <div class="modal-content">
+            <h4>Warning</h4>
+            <p>Doing job cannot greater than 3</p>
+        </div>
+    
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green waves-light btn" style="margin: 0 15px 15px 0;">OK</a>
+        </div>
+    </div>
+    
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script> -->
+    <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+        crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
+
+    <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+
+
+</body>
+
+</html>

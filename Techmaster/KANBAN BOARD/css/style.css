@@ -1,0 +1,62 @@
+* {
+    box-sizing: border-box;
+}
+
+h5 {
+    margin: 0;
+    padding: 0.82rem 20px 0.656rem 20px;
+}
+
+.count {
+    font-size: 1.4rem;
+}
+
+#main-content {
+    margin-top: 3rem;
+    position: relative;
+}
+
+.card .collection {
+    margin: 0;
+    overflow: inherit;
+    min-height: calc(1.5rem + 20px);
+    background-color: #fafafa;
+}
+
+.card .collection .list-group-item {
+    transition: 0s;
+    cursor: move;
+}
+
+.card .collection .list-group-item .dragging {
+    -ms-transform: rotate(1deg); /* IE 9 */
+    -webkit-transform: rotate(1deg); /* Chrome, Safari, Opera */
+    transform: rotate(1deg);
+}
+
+.ui-state-highlight {
+    background-color: #fafafa;
+    height: calc(1.5rem + 20px);
+}
+
+.action {
+    padding: 10px 20px;
+}
+
+
+.modal {
+    width: 40%;
+}
+
+.modal .modal-content h4 {
+    font-size: 1.64rem;
+    line-height: 110%;
+}
+
+#btn-delete {
+    margin-right: 10px;
+}
+
+.hidden {
+    display: none;
+}
