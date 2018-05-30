@@ -44,11 +44,11 @@ $(document).ready(function () {
     });
 
     // ripples
-    $("#header, .info").ripples({
+    /* $("#header, .info").ripples({
         dropRadius: 12,
         perturbance: 0.05,
 
-    });
+    }); */
 
     // magnific popup
     $('.parent-container').magnificPopup({
