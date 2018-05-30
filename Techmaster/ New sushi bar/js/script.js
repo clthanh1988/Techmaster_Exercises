@@ -1,6 +1,6 @@
 $(document).ready(function () {
     //toggler btn
-    $('.navbar-toggler').click(function(){
+    $('.navbar-toggler').click(function () {
 
         $('.navbar-toggler').toggleClass('change')
 
@@ -8,47 +8,45 @@ $(document).ready(function () {
     });
 
     // sticky navbar less padding
-    $(window).scroll(function(){
+    $(window).scroll(function () {
         var position = $(this).scrollTop();
-        if(position >= 718) {
+        if (position >= 718) {
             $('.navbar').addClass('navbar-background');
             $('.navbar').addClass('fixed-top');
-        }
-        else {
+        } else {
             $('.navbar').removeClass('navbar-background');
             $('.navbar').removeClass('fixed-top');
         }
     });
 
     // smooth scroll
-    $('.nav-item a, .header-link, #back-to-top').click(function(link){
+    $('.nav-item a, .header-link, #back-to-top').click(function (link) {
         link.preventDefault();
 
         var target = $(this).attr('href');
 
         $('html, body').stop().animate({
             scrollTop: $(target).offset().top - 25
-        },3000);
+        }, 1000);
 
 
     });
 
     // back to top
-    $(window).scroll(function(){
+    $(window).scroll(function () {
         var position = $(this).scrollTop();
-        if(position >= 718) {
+        if (position >= 718) {
             $('#back-to-top').addClass('scrollTop');
-            
-        }
-        else {
+
+        } else {
             $('#back-to-top').removeClass('scrollTop');
         }
     });
-    
+
     // ripples
     $("#header, .info").ripples({
-        dropRadius: 25,
-        perturbance: 0.6,
+        dropRadius: 12,
+        perturbance: 0.05,
 
     });
 
@@ -56,9 +54,9 @@ $(document).ready(function () {
     $('.parent-container').magnificPopup({
         delegate: 'a', // child items selector, by clicking on it popup will open
         type: 'image',
-        
+
         gallery: {
             enabled: true
         }
-      });
+    });
 });

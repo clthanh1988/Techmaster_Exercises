@@ -7,7 +7,7 @@
 }
 
 body {
-    font-family: 'Mr Dafoe', cursive;
+    font-family: 'Titillium Web', sans-serif;
     color: #c9c1ac;
     background: url(../img/body-bcg.jpg)center/cover fixed no-repeat;
 }
@@ -21,7 +21,7 @@ body {
 }
 
 .info a {
-    transition: color 2s ease-in-out;
+    transition: color 1s ease-in-out;
 }
 
 .info a:hover {
@@ -48,8 +48,8 @@ body {
     border-top: 6px dotted #c9c1ac;
     border-bottom: 6px dotted #c9c1ac;
     animation: fromLeft;
-    animation-duration: 4s;
-    animation-delay: 2s;
+    animation-duration: 2s;
+    animation-delay: 1s;
     opacity: 0;
     animation-fill-mode: forwards;
 }
@@ -83,8 +83,8 @@ body {
 
 .sushi-btn {
     animation: fromRight;
-    animation-duration: 4s;
-    animation-delay: 2s;
+    animation-duration: 2s;
+    animation-delay: 1s;
     opacity: 0;
     animation-fill-mode: forwards;
 }
@@ -110,9 +110,9 @@ body {
     left: 50%;
     background: #c9c1ac;
     border-radius: 10px;
-    transition: all 2s ease;
+    transition: all 1s ease;
     animation: fromBottom;
-    animation-duration: 4s;
+    animation-duration: 2s;
     animation-iteration-count: infinite;
 }
 
@@ -156,7 +156,7 @@ body {
 .nav-link {
     color: #242424;
     text-decoration: none;
-    transition: all 2s ease;
+    transition: all 1s ease;
     font-size: 23px;
 }
 
@@ -169,7 +169,7 @@ body {
     color: #d3325f;
     border: 2px solid #d3325f;
     font-size: 23px;
-    transition: all 2s ease;
+    transition: all 1s ease;
 }
 
 .nav-btn:hover {
@@ -181,7 +181,7 @@ body {
 .toggler-btn {
     border: 2px solid #d3325f;
     padding: 5px;
-    transition: all 2s ease;
+    transition: all 1s ease;
 }
 
 .bar {
@@ -213,11 +213,11 @@ body {
     /* for the link */
     overflow: hidden;
     background: linear-gradient(rgb(0,0,0),rgb(0,0,0));
-    transition: all 2s ease;
+    transition: all 1s ease;
 }
 
 .item-img {
-    transition: all 2s ease;
+    transition: all 1s ease;
 }
 
 .item-container:hover .item-img {
@@ -234,7 +234,7 @@ body {
     font-size: 2rem;
     border-top: 3px solid #d3325f;
     border-bottom: 3px solid #d3325f;
-    transition: all 2s ease;
+    transition: all 1s ease;
     opacity: 0;
 }
 
@@ -280,7 +280,7 @@ body {
 .about-image {
     position: absolute;
     width: 200px;
-    transition: all 2s ease;
+    transition: all 1s ease;
     opacity: 0.9;
 }
 
@@ -336,7 +336,7 @@ body {
 
 .team-icons a {
     color: #3b5998;
-    transition: all 2s ease-in-out;
+    transition: all 1s ease-in-out;
 }
 
 .team-icons a:hover {
@@ -357,7 +357,7 @@ body {
 
 #contact .card {
     background: rgba(0, 0, 0, 0.6);
-    transition: all 2s ease;
+    transition: all 1s ease;
 }
 
 #contact .card:hover {
@@ -386,7 +386,7 @@ body {
     color: #d3325f;
     border-color: #d3325f;
     background: transparent;
-    transition: all 2s ease-in-out;
+    transition: all 1s ease-in-out;
 }
 
 .contact-btn:hover {
