@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sign in</title>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    
 </head>
 <body>
     <div class="container">    
@@ -19,10 +21,10 @@
                     </div>     
 
                     <div style="padding-top:30px" class="panel-body" >
-                        <% if (data && data.error){ %>
+                        <% if (data && data.error) {%>
                         <div id="login-alert" class="alert alert-danger col-sm-12"><%= data.error %> </div>
                             
-                        <%}%>   
+                        <%} %>   
                         <form id="loginform" class="form-horizontal" role="form" method="POST">
                                     
                             <div style="margin-bottom: 25px" class="input-group">

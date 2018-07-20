@@ -24,13 +24,14 @@
                         <div class="panel-body" >
                             <form id="signupform" class="form-horizontal" role="form" method="POST" action="/signup">
                                 
-                                <div id="signupalert" style="<% if (!data || !data.error) { %> display:none;
-                                    <%}%>" class="alert alert-danger">
+                                <div id="signupalert" style="<% if (!data || !data.error) {%> display:none;
+                                    <%} %>" class="alert alert-danger">
                                     <p>Error:</p>
 
-                                    <%if (data && data.error) {%>
-                                    <span> <%= data.error %> </span>
-                                    <%}%>
+                                    <% if (data && data.error) {%>
+                                            <span> <%= data.error %> </span>
+                                        <%} 
+                                    %>
                                 </div>
                                     
                                 
