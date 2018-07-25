@@ -45,7 +45,7 @@ export const createNewPost = async (title, content, author) => {
     }    
 }
 export const getAllPosts = async () => {  
-      try {
+    try {
         const allPosts = await Post.findAll({
             attributes:["id" ,"title", "content", 'author', "createdAt", "updatedAt"]            
           });   
@@ -56,18 +56,35 @@ export const getAllPosts = async () => {
 }
 export const getPostById = async (id) => {    
       try {
-        const allPosts = await Post.findAll({
-            attributes:["id" ,"title", "content", 'author', "createdAt", "updatedAt"],
-            where: {
-              id
-            }
-          });   
-          if (allPosts.length > 0) {
-              return allPosts[0];
-          } else {
-              return {};
-          }          
+        const post = await Post.findById(id);  
+
+        return post.dataValues;
+                   
     } catch (error) {
         return {};
     }   
 }
+export const updateById = async (params) => {    
+    try {
+        const updatedPost = await Post.findById(params.id);
+        await updatedPost.update(params);    
+        return updatedPost;
+                 
+    } catch (error) {
+      return {};
+  }   
+}
+
+export const deletePost = async (id) => {
+    try {
+        await Post.destroy({
+            where: {
+              id
+            }
+          });    
+        return true;
+                 
+    } catch (error) {
+      throw error;
+  }  
+} 
