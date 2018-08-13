@@ -36,11 +36,11 @@ export default class Home extends React.Component {
             let productsList = this.state.products.map(product => {
                 return <li>
                     <p>Name: {product.name}</p>
-                    <p>Year : {product.year}</p>
+                    <p>Year: {product.year}</p>
                 </li>
             });
             return <ol>
-            {productsList}
+                {productsList}
             </ol>
         }
         render() {  
