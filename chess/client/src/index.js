@@ -6,12 +6,12 @@ import Game from './components/game.js'
 import Home from './components/Home.js'
 
 
-// ReactDOM.render(  
-//   <Game />,
-//   document.getElementById('root')
-// );
-
 ReactDOM.render(  
-  <Home />,
+  <Game />,
   document.getElementById('root')
 );
+
+// ReactDOM.render(  
+//   <Home />,
+//   document.getElementById('root')
+// );
