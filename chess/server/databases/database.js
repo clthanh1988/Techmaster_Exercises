@@ -1,5 +1,5 @@
 import Sequelize from 'sequelize';
-export const sequelize = new Sequelize('postgres', 'postgres', '123456', {
+export const sequelize = new Sequelize('chessdatabase', 'postgres', '123456', {
   host: 'localhost',
   dialect: 'postgres',
   operatorsAliases: false,

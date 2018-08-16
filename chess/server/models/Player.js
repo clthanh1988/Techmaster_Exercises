@@ -9,21 +9,8 @@ export const Player = sequelize.define('player', {
         autoIncrement: true
     },
     name: Sequelize.STRING,
-
-    password: Sequelize.STRING,
-    
-    createdAt: {
-        type: Sequelize.DATE,
-        field: 'createdat'
-    },
-
-    updatedAt: {
-        type: Sequelize.DATE,
-        field: 'updatedat'
-    } 
-    
+    password: Sequelize.STRING,        
   },
-
   {timestamps: true }
 );
 /*
@@ -39,11 +26,9 @@ export const insertPlayer = async (name, password) => {
     try {
         const insertedPlayer = await Player.create({
             name,
-            password,
-            createdAt,
-            updatedAt
+            password
         },{
-                fields: ["name", "password", 'createdAt', "updatedAt"]
+                fields: ["name", "password"]
         });
         return insertedPlayer ? insertedPlayer : {}
     
@@ -68,11 +53,35 @@ export const findPlayerById = async (id) => {
         throw error;
     }
 }
+export const loginPlayer = async (name, password) => {
+    try {        
+        var allPlayers = await Player.findAll({
+            attributes:["id" ,"name", "password"],
+            where: {
+                name,password
+            }            
+          });
+
+        if (allPlayers.length > 0) {
+            return allPlayers[0];
+        }
+        else {
+            return null;
+        }
+    }
+
+    catch(error) {
+        throw error;
+    }
+}    
+
+
+
 
 export const findAllPlayers = async () => {
     try {
         var allPlayers = await Player.findAll({
-            attributes:["id" ,"name", "password", "createdAt", "updatedAt"]            
+            attributes:["id" ,"name", "password"]            
           });
         if (!allPlayers) {
             throw error
