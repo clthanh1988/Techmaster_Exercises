@@ -1,7 +1,6 @@
 import { sequelize, Op } from '../databases/database';
 import Sequelize from 'sequelize';
-
-import Game from './Games';
+import {Game} from './Game';
 
 export const Player = sequelize.define('player', {
     id: {
@@ -54,11 +53,11 @@ export const insertPlayer = async (name, password) => {
     }
 }
 
-export const findPlayerById = (id) => {
+export const findPlayerById = async (id) => {
     try {
         var player = await Player.findById(id);
         if (!player) {
-            throw error
+            return null;
         }
         else {
             return player.dataValues;
@@ -70,7 +69,7 @@ export const findPlayerById = (id) => {
     }
 }
 
-export const findAllPlayers = () => {
+export const findAllPlayers = async () => {
     try {
         var allPlayers = await Player.findAll({
             attributes:["id" ,"name", "password", "createdAt", "updatedAt"]            
