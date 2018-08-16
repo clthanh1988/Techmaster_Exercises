@@ -3,7 +3,7 @@ var router = express.Router();
 
 import { Player, insertPlayer, findPlayerById  } from '../models/Player';
 import { Game, createNewGame  } from '../models/Game';
-import { Piece, addNewPiece, create32Pieces, updatePiece, pieceAattackPieceB  } from '../models/Pieces';
+import { Piece, addNewPiece, create32Pieces, updatePiece, pieceAattackPieceB  } from '../models/Piece';
 
 router.post('/startGame', async (req,res,next) => {   
     try {

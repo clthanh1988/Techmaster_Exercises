@@ -1,6 +1,6 @@
 import { sequelize, Op } from '../databases/database';
 import Sequelize from 'sequelize';
-import {Game} from './Game';
+import { Game} from './Game';
 
 export const Player = sequelize.define('player', {
     id: {
@@ -26,13 +26,13 @@ export const Player = sequelize.define('player', {
 
   {timestamps: true }
 );
-
+/*
 Player.hasMany(Game, { foreignKey: 'player1Id', sourceKey: 'id' });
 Player.hasMany(Game, { foreignKey: 'player2Id', sourceKey: 'id' });
 
 Game.belongsTo(Player, { foreignKey: 'player1Id', targetKey: 'id' });
 Game.belongsTo(Player, { foreignKey: 'player2Id', targetKey: 'id' });
-
+*/
 
 export const insertPlayer = async (name, password) => {
 

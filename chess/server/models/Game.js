@@ -10,39 +10,19 @@ export const Game = sequelize.define('game', {
         primaryKey: true,
         autoIncrement: true
     },
-    player1Id: {
-        
-        type: Sequelize.INTEGER, 
-        primaryKey: true,
-        autoIncrement: true
-        
-        
+    player1Id: {        
+        type: Sequelize.INTEGER,                 
     },
-    player2Id: {
-        id: {
-            type: Sequelize.INTEGER, 
-            primaryKey: true,
-            autoIncrement: true
-        },
-        side: Sequelize.STRING
-    }
+    player2Id: {        
+        type: Sequelize.INTEGER,                 
+    },
 },
     {timestamps: true }
 );
 
-Game.hasMany(Piece, { foreignKey: 'gameId', sourceKey: 'gameId' });
+// Game.hasMany(Piece, { foreignKey: 'gameId', sourceKey: 'gameId' });
+// Piece.belongsTo(Game, { foreignKey: 'gameId', targetKey: 'gameId' });
 
-
-Piece.belongsTo(Game, { foreignKey: 'gameId', targetKey: 'gameId' });
-
-
-// CREATE TABLE IF NOT EXISTS games(
-//     gameId integer, 
-//     player1Id integer,
-//     player2Id integer,
-//     createdAt date
-    
-// );
 
 export const createNewGame = async (player1Id, player2Id) => {
     try {
@@ -65,3 +45,4 @@ export const createNewGame = async (player1Id, player2Id) => {
         return null;
     }
 }
+

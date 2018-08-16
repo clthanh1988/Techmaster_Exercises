@@ -3,10 +3,8 @@ import Sequelize from 'sequelize';
 import { createNewGame } from './Game';
 
 export const Piece = sequelize.define('piece', {
-    id: {
-        type: Sequelize.INTEGER, 
-        primaryKey: true,
-        autoIncrement: true
+    pieceId: {
+        type: Sequelize.INTEGER        
     },
     typeOfPiece: Sequelize.STRING, // 'K' 'Q' 'R' 'N' 'B' 'P'
     playerId: Sequelize.INTEGER, // 1 OR 2
@@ -17,6 +15,7 @@ export const Piece = sequelize.define('piece', {
         type: Sequelize.DATE,
         field: 'updatedat'
     },
+
     gameId: Sequelize.INTEGER
 });
 
