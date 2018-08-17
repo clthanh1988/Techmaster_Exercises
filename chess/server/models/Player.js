@@ -8,10 +8,10 @@ export const Player = sequelize.define('player', {
         primaryKey: true,
         autoIncrement: true
     },
-    name: Sequelize.STRING,
-    password: Sequelize.STRING,        
+    name: Sequelize.TEXT,
+    password: Sequelize.TEXT,        
   },
-  {timestamps: true }
+  {timestamps: false }
 );
 /*
 Player.hasMany(Game, { foreignKey: 'player1Id', sourceKey: 'id' });

@@ -12,7 +12,7 @@ export default class newBoard extends React.Component {
     componentDidMount = async () => {            
         try {
             let response = await fetch(
-              'http://localhost:3000/users',
+              'http://localhost:3000/startGame',
               {
                 method: 'POST',                                        
               });

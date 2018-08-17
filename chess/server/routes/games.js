@@ -11,7 +11,7 @@ router.post('/startGame', async (req,res,next) => {
         //Validate
         let newGame = await createNewGame(player1Id, player2Id);                
         if (newGame) {
-            await create32Pieces(player1Id, player2Id, newGame.gameId);
+            await create32Pieces(player1Id, player2Id, newGame.gameid);
             res.json({
                 status: 'ok',
                 data: newGame
@@ -27,11 +27,46 @@ router.post('/startGame', async (req,res,next) => {
         res.json({
             status: 'false',
             data: {},
-            message: "Cannot start a game"
+            message: "Cannot start a game"+error
         })
     }
 
 })
+
+router.post('/move', async (req,res,next) => {   
+    try {
+        let { gameid, pieceid, currentpos, dest } = req.body;
+        //Validate
+        let result = await updatePiece(pieceid, gameid, 0, dest);
+        
+        
+        if (result) {
+            
+            res.json({
+                status: 'ok',
+                data: result
+            })
+        } else {
+            res.json({
+                status: 'false',
+                data: {},
+                message: "Cannot move a piece!"
+            })    
+        }                
+    } catch(error) {
+        res.json({
+            status: 'false',
+            data: {},
+            message: "Cannot move " +error
+        })
+    }
+
+})
+
+
+
+
+
 /*
 router.post('/createRoom', async (req,res,next) => {
     let {player1Id} = req.body;
