@@ -1,11 +1,79 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+
+<head>
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <!-- <title>Demo socket</title> -->
+  <title>Demo chat</title>
+  <script src='socket.io/socket.io.js'></script>
+
+  <script src='controller.js'>
+    // Goi dien len server
+
+    // const socket = io('http://localhost:4000');
+
+    // socket.on('Server-send-data', function (data) {
+    //   $('#noidung').append(data);
+    // })
+
+    // $(document).ready(function () {
+    //   // alert('Hello Jquery')
+    //   // $('#mrA').click(function () {
+
+    //   //   // alert(1);
+    //   //   socket.emit('Client-send-data', 'Hello')
+
+    //   // })
+
+    //   alert(1);
+
+    // })
+  </script>
+  <link rel="stylesheet" type='text/css' href="layout.css">
+</head>
+
+<body>
+
+  <!-- <h1>Welcome</h1>
+
+  <div id="mrA">Click send</div>
+  <h2 id='noidung'></h2> -->
+  <div id="wrapper">
+
+      <div id="loginForm">
+        <h3>What's your name?</h3>
+        <input type="text" id='userName' />
+        <input type="button" value='register' id='btnRegister' />
+
+      </div>
+
+      <div id="chatForm">
+        <div id="left">
+          <div id="boxTitle">Users Online</div>
+          <div id="boxContent">
+           
+
+          </div>
+
+        </div>
+        <div id="right">
+          <div id="sayHi">
+            Hello <span id='currentUser'>hoang</span>
+            <input type="button" id='btnLogout' value='Logout'>
+          </div>
+
+          <div id="listMessages"></div>
+
+          <div id="notification"></div>
+
+          <input type="text" id='txtMessage' />
+          <input type='button' id="btnSendMessage" value='Send' />
+        </div>
+
+      </div>
+
+  </div>
+  
+
+</body>
+
 </html>

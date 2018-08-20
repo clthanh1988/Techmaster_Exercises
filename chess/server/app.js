@@ -5,16 +5,113 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+
+
+var app = express();
+var server = http.Server(app);
+const io = require('socket.io')(server);
+server.listen(4000);
+
+var Users = [];
+
+io.on('connection', function(socket) {
+
+    console.log('Co nguoi ket noi ' + socket.id);
+
+    socket.on('disconnect', function() {
+        console.log(socket.id + ' Ngat ket noi !!!');
+    })
+
+    socket.on('client-send-userName', function(data) {
+        console.log(data);
+        if (Users.indexOf(data) >= 0) {
+            // False
+            socket.emit('server-send-loginFail');
+        }
+        else {
+            // Success
+            Users.push(data);
+            socket.userName = data;
+            socket.emit('server-send-loginSuccess', data);
+            io.sockets.emit('server-send-usersList', Users)
+        }
+    })
+
+    socket.on('client-logout', function() {
+        Users.splice(Users.indexOf(socket.userName), 1);
+        socket.broadcast.emit('server-send-usersList', Users)
+    })
+
+    socket.on('client-send-mess', function(data) {
+        io.sockets.emit('server-send-mess', {userName: socket.userName, mess: data })
+    })
+
+    socket.on('client-typing', function(){
+        // console.log(socket.userName + ' is typing');
+        var s = socket.userName + ' is typing';
+        io.sockets.emit('someone-typing', s);
+    })
+
+    socket.on('client-not-typing', function(){
+        // console.log(socket.userName + ' is STOP typing');
+        // var s = socket.userName + ' is STOP typing';
+        io.sockets.emit('someone-stop-typing');
+    })
+
+    // socket.on('Client-send-data', function(data) {
+    //     console.log(socket.id + ' vua gui ' + data);
+        
+    //     // Server truyen lai cho tat ca ( gom ca thang A)
+    //     //io.sockets.emit('Server-send-data', data)
+        
+    //     // Server truyen lai cho thang A
+    //     // socket.emit('Server-send-data', data)
+
+    //     // Server truyen lai cho tat ca NGOAI TRU thang A
+    //     socket.broadcast.emit('Server-send-data', data)
+    // })
+})
+
+// var io = require('socket.io')(server);
+
+// io.on('connection', function (socket) {
+//     io.emit('this', { will: 'be received by everyone'});
+  
+//     socket.on('private message', function (from, msg) {
+//       console.log('I received a private message by ', from, ' saying ', msg);
+//     });
+  
+//     socket.on('disconnect', function () {
+//       io.emit('user disconnected');
+//     });
+//   });
+
+
+// WARNING: app.listen(80) will NOT work here!
+
+// app.get('/', function (req, res) {
+//   res.sendFile(__dirname + '/index.html');
+// });
+
+// io.on('connection', function (socket) {
+//   socket.emit('news', { hello: 'world' });
+//   socket.on('my other event', function (data) {
+//     console.log(data);
+//   });
+// });
+
+
+
 // var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
 const gamesRouter = require('./routes/games');
 const playerRouter = require('./routes/playerRouter');
 
 
-const app = express();
+// const app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
@@ -31,22 +128,28 @@ app.use('/games', gamesRouter);
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.use('/', function(req, res) {
+    res.render('index');
+    // next(createError(404));
 });
 
 
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+// app.use(function(err, req, res, next) {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+//   // render the error page
+//   res.status(err.status || 500);
+//   res.render('error');
+// });
+
+// app.use('/', function(req,res) {
+//     res.render('index.ejs');
+
+// })
 
 module.exports = app;
 
