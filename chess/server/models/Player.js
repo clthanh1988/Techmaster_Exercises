@@ -1,18 +1,26 @@
 import { sequelize, Op } from '../databases/database';
 import Sequelize from 'sequelize';
-import { Game} from './Game';
+import { Game } from './Game';
+
+import {
+  isEmpty,toDate, isURL, isEmail
+} from 'validator';
 
 export const Player = sequelize.define('player', {
     id: {
-        type: Sequelize.INTEGER, 
+        type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
+    email: Sequelize.TEXT,
     name: Sequelize.TEXT,
-    password: Sequelize.TEXT,        
-  },
-  {timestamps: false }
-);
+    password: Sequelize.TEXT,
+    isplaying: Sequelize.INTEGER,
+    tokenkey: Sequelize.TEXT
+    
+
+
+}, { timestamps: false });
 /*
 Player.hasMany(Game, { foreignKey: 'player1Id', sourceKey: 'id' });
 Player.hasMany(Game, { foreignKey: 'player2Id', sourceKey: 'id' });
@@ -21,77 +29,115 @@ Game.belongsTo(Player, { foreignKey: 'player1Id', targetKey: 'id' });
 Game.belongsTo(Player, { foreignKey: 'player2Id', targetKey: 'id' });
 */
 
-export const insertPlayer = async (name, password) => {
+export const insertPlayer = async (email, password, name, isplaying, tokenkey) => {
 
     try {
-        const insertedPlayer = await Player.create({
+        let insertedPlayer = await Player.create({
+            
+            email,
+            password,
             name,
-            password
-        },{
-                fields: ["name", "password"]
+            isplaying,
+            tokenkey
+        }, {
+            fields: ["email", "password", 'name', 'isplaying', 'tokenkey']
         });
+        
+
         return insertedPlayer ? insertedPlayer : {}
-    
-    }
-    catch(error) {
+
+    } catch (error) {
         throw error;
     }
 }
 
-export const findPlayerById = async (id) => {
+export const findPlayerById = async(id) => {
     try {
         var player = await Player.findById(id);
         if (!player) {
             return null;
-        }
-        else {
+        } else {
             return player.dataValues;
         }
-    }
-
-    catch(error) {
+    } catch (error) {
         throw error;
     }
 }
-export const loginPlayer = async (name, password) => {
-    try {        
+export const loginPlayer = async(email, password) => {
+    try {
         var allPlayers = await Player.findAll({
-            attributes:["id" ,"name", "password"],
+            attributes: ["id", "email", "password"],
             where: {
-                name,password
-            }            
-          });
+                email,
+                password
+            }
+        });
 
         if (allPlayers.length > 0) {
             return allPlayers[0];
-        }
-        else {
+        } else {
             return null;
         }
-    }
-
-    catch(error) {
+    } catch (error) {
         throw error;
     }
-}    
+}
 
 
 
 
-export const findAllPlayers = async () => {
+export const findAllPlayers = async() => {
     try {
         var allPlayers = await Player.findAll({
-            attributes:["id" ,"name", "password"]            
-          });
+            attributes: ["id", "email", "password"]
+        });
         if (!allPlayers) {
             throw error
-        }
-        else {
+        } else {
             return allPlayers;
         }
-    }
-
-    catch(error) {
+    } catch (error) {
         throw error;
     }
+}
+
+export const getAvailablePlayers = async() => {
+    let onlinePlayers = await Player.findAll({ limit: 10 },{
+        attributes: ["id", "email", "password"],
+        where: {
+            isplaying: 0 // 0
+        }
+    });
+
+    if(!onlinePlayers) {
+        return {}
+    }
+    else {
+        return onlinePlayers
+    }
+
+}
+
+export const updatePlayer = async(id, newIsplaying, newName, newPassword, newTokenkey) => {
+    try {
+        var thisPlayer = await Player.findOne({
+            attributes: ['email', 'name', 'password', 'isplaying', 'tokenkey'],
+            where: {
+                id:id
+            }
+        });
+        await thisPlayer.update({
+            isplaying: newIsplaying ? newIsplaying : isplaying,
+            name: newName ? newName : isplaying,
+            password: newPassword ? newPassword : password,
+            tokenkey: newTokenkey ? newTokenkey : tokenkey
+            
+        });
+        return thisPlayer;
+
+    } catch (error) {
+        throw error;
+    }
+    
+
 }
