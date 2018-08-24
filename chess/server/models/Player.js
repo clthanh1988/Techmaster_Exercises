@@ -6,6 +6,7 @@ import {
   isEmpty,toDate, isURL, isEmail
 } from 'validator';
 
+
 export const Player = sequelize.define('player', {
     id: {
         type: Sequelize.INTEGER,
@@ -101,31 +102,37 @@ export const findAllPlayers = async() => {
     }
 }
 
-export const getAvailablePlayers = async() => {
-    let onlinePlayers = await Player.findAll({ limit: 10 },{
-        attributes: ["id", "email", "password"],
-        where: {
-            isplaying: 0 // 0
+export const getAvailablePlayers = async(pageNumber) => {
+    try {
+        
+        let onlinePlayers = await Player.findAll({
+            attributes: ["id", "email", "password", 'isplaying', 'tokenkey'],
+            where: {
+                isplaying: 0
+            },
+            offset: pageNumber * 10,
+            limit: 10
+        })
+
+
+        if(!onlinePlayers) {
+            return {}
         }
-    });
-
-    if(!onlinePlayers) {
-        return {}
+        else {
+            
+            return onlinePlayers
+        }
     }
-    else {
-        return onlinePlayers
+    catch(error) {
+        throw error
     }
-
 }
 
 export const updatePlayer = async(id, newIsplaying, newName, newPassword, newTokenkey) => {
     try {
-        var thisPlayer = await Player.findOne({
-            attributes: ['email', 'name', 'password', 'isplaying', 'tokenkey'],
-            where: {
-                id:id
-            }
-        });
+        let thisPlayer = await Player.findById(id);
+
+    
         await thisPlayer.update({
             isplaying: newIsplaying ? newIsplaying : isplaying,
             name: newName ? newName : isplaying,

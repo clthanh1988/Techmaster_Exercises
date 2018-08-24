@@ -4,7 +4,7 @@ var router = express.Router();
 import { Player, insertPlayer, findPlayerById, loginPlayer, getAvailablePlayers, updatePlayer } from '../models/Player';
 import { Game, createNewGame  } from '../models/Game';
 import { Piece, addNewPiece, create32Pieces, updatePiece, pieceAattackPieceB  } from '../models/Piece';
-import { CLIENT_RENEG_LIMIT } from 'tls';
+
 
 router.post('/register', async (req,res) => {   
     try {
@@ -92,7 +92,34 @@ router.post('/update', async(req,res) => {
             message: "Update player failed. Error" + error
         })
     }
+})
 
+router.get('/getAvailablePlayers/:pageNumber', async (req,res) => {
+    try {
+        const {pageNumber} = req.params;
+        let availablePlayers = await getAvailablePlayers(pageNumber);
+        if(!availablePlayers) {
+            res.json({
+                result: 'false',
+                data: {},
+                message: 'get available players failed'
+            })
+        }
+        else {
+            res.json({
+                result: 'ok',
+                data: availablePlayers,
+                message: 'get available players success'
+            })
+        }
+    }
+    catch(error) {
+        res.json({
+            result: 'false',
+            data: {},
+            message: 'get available players failed' + error
+        })
+    }
 
 
 })

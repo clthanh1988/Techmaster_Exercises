@@ -3,9 +3,12 @@ import Sequelize from 'sequelize';
 import { createNewGame } from './Game';
 
 export const Piece = sequelize.define('piece', {
-    pieceid: {
-        type: Sequelize.INTEGER
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
     },
+    piecenumber: Sequelize.INTEGER,
     typeofpiece: Sequelize.TEXT, // K Q R N B P
     playerid: Sequelize.INTEGER, // 1 OR 2
     src: Sequelize.INTEGER,
@@ -14,49 +17,51 @@ export const Piece = sequelize.define('piece', {
     gameid: Sequelize.INTEGER
 }, { timestamps: false });
 
-export const addNewPiece = async(pieceid, typeofpiece, playerid, src, isdead, gameid) => {
-
+export const addNewPiece = async(piecenumber, typeofpiece, playerid, src, isdead, gameid) => {
+    console.log(`piecenumber = ${piecenumber}`);
+        console.log(`typeofpiece = ${typeofpiece}`);
+        console.log(`playerid = ${playerid}`);
+        console.log(`src = ${src}`);
+        console.log(`isdead = ${isdead}`);
+        console.log(`gameid = ${gameid}`);
     try {
+        
         await Piece.create({
-            pieceid,
-            typeofpiece,
-            playerid,
-            src,
-            isdead,
-            gameid
+            piecenumber, typeofpiece, playerid, src, isdead, gameid
         }, {
-            fields: ['pieceid', 'typeofpiece', 'playerid', 'currentpos', 'isdead', 'gameid']
+            fields: ['piecenumber', 'typeofpiece', 'playerid', 'src', 'isdead', 'gameid']
         });
+        
     } catch (error) {
         throw error;
     }
 }
 
 export const create32Pieces = async(player1id, player2id, gameid) => {
-    await addNewPiece(0, R, player2id, 0, 0, gameid)
-    await addNewPiece(1, N, player2id, 1, 0, gameid)
-    await addNewPiece(2, B, player2id, 2, 0, gameid) 
-    await addNewPiece(3, Q, player2id, 3, 0, gameid) 
-    await addNewPiece(4, K, player2id, 4, 0, gameid) 
-    await addNewPiece(5, B, player2id, 5, 0, gameid) 
-    await addNewPiece(6, N, player2id, 6, 0, gameid) 
-    await addNewPiece(7, R, player2id, 7, 0, gameid)
+    await addNewPiece(0, "R", player2id, 0, 0, gameid)
+    await addNewPiece(1, 'N', player2id, 1, 0, gameid)
+    await addNewPiece(2, 'B', player2id, 2, 0, gameid) 
+    await addNewPiece(3, 'Q', player2id, 3, 0, gameid) 
+    await addNewPiece(4, 'K', player2id, 4, 0, gameid) 
+    await addNewPiece(5, 'B', player2id, 5, 0, gameid) 
+    await addNewPiece(6, 'N', player2id, 6, 0, gameid) 
+    await addNewPiece(7, 'R', player2id, 7, 0, gameid)
 
     for (let i = 8; i < 16; i++) {
-        await addNewPiece(i, P, player2id, i, 0, gameid)
+        await addNewPiece(i, 'P', player2id, i, 0, gameid)
     }
 
-    await addNewPiece(56, R, player1id, 56, 0, gameid) 
-    await addNewPiece(57, N, player1id, 57, 0, gameid) 
-    await addNewPiece(58, B, player1id, 58, 0, gameid) 
-    await addNewPiece(59, Q, player1id, 59, 0, gameid) 
-    await addNewPiece(60, K, player1id, 60, 0, gameid) 
-    await addNewPiece(61, B, player1id, 61, 0, gameid) 
-    await addNewPiece(62, N, player1id, 62, 0, gameid) 
-    await addNewPiece(63, R, player1id, 63, 0, gameid)
+    await addNewPiece(56, 'R', player1id, 56, 0, gameid) 
+    await addNewPiece(57, 'N', player1id, 57, 0, gameid) 
+    await addNewPiece(58, 'B', player1id, 58, 0, gameid) 
+    await addNewPiece(59, 'Q', player1id, 59, 0, gameid) 
+    await addNewPiece(60, 'K', player1id, 60, 0, gameid) 
+    await addNewPiece(61, 'B', player1id, 61, 0, gameid) 
+    await addNewPiece(62, 'N', player1id, 62, 0, gameid) 
+    await addNewPiece(63, 'R', player1id, 63, 0, gameid)
 
     for (let i = 48; i < 56; i++) {
-        await addNewPiece(i, P, player1id, i, 0, gameid)
+        await addNewPiece(i, 'P', player1id, i, 0, gameid)
     }
 }
 

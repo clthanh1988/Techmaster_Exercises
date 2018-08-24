@@ -5,7 +5,7 @@ import Piece from './Piece';
 import { findPlayerById, findAllPlayers } from './Player';
 
 export const Game = sequelize.define('game', {
-    gameid: {
+    id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
@@ -24,23 +24,19 @@ export const Game = sequelize.define('game', {
 // Piece.belongsTo(Game, { foreignKey: 'gameId', targetKey: 'gameId' });
 
 
-export const createNewGame = async (player1Id, player2Id) => {
+export const createNewGame = async (player1id, player2id, description) => {
     try {
-
-        let player1 = await findPlayerById(player1Id);
-        let player2 = await findPlayerById(player2Id);
-
-
-        if (!player1 || !player2) {
+        if (player1id < 0 && player2id < 0) {
             return null;
-        }
+        } 
         // console.log(player1);
         // console.log(player2);
         let newGame = await Game.create({
-            player1id: player1Id,
-            player2id: player2Id
+            player1id,
+            player2id,
+            description
         }, {
-            fields: ['player1id', 'player2id']
+            fields: ['player1id', 'player2id', 'description']
         });
         return newGame;
     } catch (error) {
@@ -49,8 +45,50 @@ export const createNewGame = async (player1Id, player2Id) => {
     }
 }
 
-export const getAvailableGames = async() => {
+export const getAvailableGames = async(pageNumber) => {
+    try {
+       
+        
+        let availableGames = await Game.findAll({
+            attributes: ['id','player1id', 'player2id', 'description'],
+            where: {
+                [Op.or]: [{player1id: -1}, {player2id: -1}]
+                
+            },
+            offset: pageNumber * 10,
+            limit: 10
+        })
 
 
+        if(!availableGames) {
+            return {}
+        }
+        else {
+            
+            return availableGames
+        }
+    }
+    catch(error) {
+        throw error
+    }
 
-} 
+
+}
+
+export const updateGame = async (id, newplayer1id, newplayer2id, newdescription) => {
+    try {
+        let updatedGame = await Game.findById(id)
+
+        await updatedGame.update({
+            player1id: newplayer1id ? newplayer1id : player1id,
+            player2id: newplayer2id ? newplayer2id : player2id,
+            description: newdescription ? newdescription : description
+            
+        });
+        return updatedGame;
+    }
+    catch(error) {
+        throw error
+
+    }
+}
