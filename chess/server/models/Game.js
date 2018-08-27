@@ -80,9 +80,9 @@ export const updateGame = async (id, newplayer1id, newplayer2id, newdescription)
         let updatedGame = await Game.findById(id)
 
         await updatedGame.update({
-            player1id: newplayer1id ? newplayer1id : player1id,
-            player2id: newplayer2id ? newplayer2id : player2id,
-            description: newdescription ? newdescription : description
+            player1id: newplayer1id ? newplayer1id : updatedGame.player1id,
+            player2id: newplayer2id ? newplayer2id : updatedGame.player2id,
+            description: newdescription ? newdescription : updatedGame.description
             
         });
         return updatedGame;

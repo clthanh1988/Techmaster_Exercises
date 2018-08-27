@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-import { Player, insertPlayer, findPlayerById, updatePlayer  } from '../models/Player';
+import { Player, insertPlayer, findPlayerById, updatePlayer, loginPlayer  } from '../models/Player';
 import { Game, createNewGame, getAvailableGames, updateGame  } from '../models/Game';
-import { Piece, addNewPiece, create32Pieces, updatePiece, pieceAattackPieceB  } from '../models/Piece';
+import { Piece, addNewPiece, create32Pieces, updatePiece, pieceAattackPieceB, getPieceByPosition, getPieceByType } from '../models/Piece';
+
 
 router.post('/createGame', async (req,res) => {   
     try {
@@ -21,9 +22,9 @@ router.post('/createGame', async (req,res) => {
         } 
         else {
             let newGame = await createNewGame(player1id, player2id, description);
+            console.log('eee')
             if (newGame) {       
-                await updatePlayer(player1id, 1, null, null, null);
-                await updatePlayer(player2id, 1, null, null, null);
+                
                 res.json({
 
                     status: 'ok',
@@ -31,6 +32,7 @@ router.post('/createGame', async (req,res) => {
                     message: 'Create new game success'
                 })
             } 
+            
             else {
     
                 res.json({
@@ -62,7 +64,12 @@ router.post('/startGame', async (req,res) => {
             })
         } 
         else {
+            
             let newGame = await updateGame(id, player1id, player2id, description);
+            
+            await updatePlayer(player1id, 1, null, null, null);
+            
+            await updatePlayer(player2id, 1, null, null, null);
             
             await create32Pieces(player1id, player2id, id);
             
@@ -128,34 +135,55 @@ router.get('/getAvailableGames/:pageNumber', async (req,res) => {
 })
 
 
-router.post('/move', async (req,res,next) => {   
+router.post('/move', async (req,res) => {   
     try {
-        let { gameid, pieceid, currentpos, dest } = req.body;
+        let { gameid, playerid, piecenumber, dest } = req.body;
         //Validate
-        let result = await updatePiece(pieceid, gameid, 0, dest);
         
-        
-        if (result) {
-            
-            res.json({
-                status: 'ok',
-                data: result
-            })
-        } else {
-            res.json({
-                status: 'false',
-                data: {},
-                message: "Cannot move a piece!"
-            })    
-        }                
-    } catch(error) {
-        res.json({
-            status: 'false',
-            data: {},
-            message: "Cannot move " +error
-        })
-    }
+        let foundPiece = await getPieceByPosition(gameid, piecenumber, dest);
 
+        if (foundPiece) {
+            if(foundPiece.playerid == playerid) {
+                res.json({
+                    status: 'failed',
+                    message: 'Wrong move. Cannot move to own piece'
+                })
+            }
+            console.log(`foundPiece = ${foundPiece}`);
+            if(foundPiece.playerid !== playerid) {
+                await pieceAattackPieceB(gameid, piecenumber, foundPiece.piecenumber, dest);
+                console.log(`foundPiece = ${JSON.stringify(foundPiece)}`);
+                res.json({
+                    status: 'ok',
+                    message: `Piece ${piecenumber} attacked ${foundPiece.piecenumber} `,
+                    data: {}
+                })
+            }
+            else {
+                let result = await updatePiece(piecenumber, gameid, null, dest);
+                res.json({
+                    status: 'ok',
+                    message: '',
+                    data: result
+                })
+            }
+        }
+        else {
+            res.json({
+                status: 'failed',
+                message: 'Cannot move a piece',
+                data: {}
+            })
+        }
+    }
+    catch(error) {
+        res.json({
+            status: 'failed',
+            data: {},
+            message: 'Cannot move a piece' + error
+        })
+
+    }
 })
 
 

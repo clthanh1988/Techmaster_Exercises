@@ -67,7 +67,7 @@ export const findPlayerById = async(id) => {
 export const loginPlayer = async(email, password) => {
     try {
         var allPlayers = await Player.findAll({
-            attributes: ["id", "email", "password"],
+            attributes: ["id", "email", "password", 'name'],
             where: {
                 email,
                 password
@@ -132,12 +132,13 @@ export const updatePlayer = async(id, newIsplaying, newName, newPassword, newTok
     try {
         let thisPlayer = await Player.findById(id);
 
-    
+        // Phải có thisPlayer để gán giá trị
+        
         await thisPlayer.update({
-            isplaying: newIsplaying ? newIsplaying : isplaying,
-            name: newName ? newName : isplaying,
-            password: newPassword ? newPassword : password,
-            tokenkey: newTokenkey ? newTokenkey : tokenkey
+            isplaying: newIsplaying ? newIsplaying : thisPlayer.isplaying,
+            name: newName ? newName : thisPlayer.name,
+            password: newPassword ? newPassword : thisPlayer.password,
+            tokenkey: newTokenkey ? newTokenkey : thisPlayer.tokenkey
             
         });
         return thisPlayer;

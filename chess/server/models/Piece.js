@@ -18,12 +18,12 @@ export const Piece = sequelize.define('piece', {
 }, { timestamps: false });
 
 export const addNewPiece = async(piecenumber, typeofpiece, playerid, src, isdead, gameid) => {
-    console.log(`piecenumber = ${piecenumber}`);
-        console.log(`typeofpiece = ${typeofpiece}`);
-        console.log(`playerid = ${playerid}`);
-        console.log(`src = ${src}`);
-        console.log(`isdead = ${isdead}`);
-        console.log(`gameid = ${gameid}`);
+    // console.log(`piecenumber = ${piecenumber}`);
+    // console.log(`typeofpiece = ${typeofpiece}`);
+    // console.log(`playerid = ${playerid}`);
+    // console.log(`src = ${src}`);
+    // console.log(`isdead = ${isdead}`);
+    // console.log(`gameid = ${gameid}`);
     try {
         
         await Piece.create({
@@ -65,20 +65,87 @@ export const create32Pieces = async(player1id, player2id, gameid) => {
     }
 }
 
-export const updatePiece = async(pieceid, gameid, updatedisdead, dest) => {
+export const updatePiece = async(piecenumber, gameid, updatedisdead, dest) => {
 
     try {
-        var thisPiece = await Piece.findAll({
-            attributes: ['pieceid', "gameid", 'typeofpiece', 'playerid', 'currentpos', 'isdead'],
+        
+        let thisPieces = await Piece.findAll({
+            attributes: ["id", 'piecenumber', "gameid", 'typeofpiece', 'playerid', 'src', 'isdead'],
             where: {
-                pieceid,
+                piecenumber,
                 gameid
             }
         });
-        await thisPiece.update({
-            currentpos: dest ? dest : currentPos,
-            isdead: updatedisdead != 'undefined' ? updatedIsDead : isDead
+        // console.log(thisPieces);
+        if(thisPieces.length > 0) {
+            let selectedPiece = await Piece.findById(thisPieces[0].id);
+
+            await selectedPiece.update({
+                src: dest ? dest : selectedPiece.src,
+                isdead: updatedisdead ? updatedisdead : selectedPiece.isdead
+            });
+            return selectedPiece;
+        } 
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const pieceAattackPieceB = async(gameid, piecenumber1, piecenumber2, dest) => {
+
+    try {
+        console.log(`piecenumber1 = ${piecenumber1}`);
+        console.log(`piecenumber2 = ${piecenumber2}`);
+        await updatePiece(piecenumber1, gameid, null, dest);
+        
+        await updatePiece(piecenumber2, gameid, 1, null);
+        
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const getPieceByPosition = async(gameid, piecenumber, src) => {
+
+    try {
+        let thisPieces = await Piece.findAll({
+            attributes: ['playerid', 'piecenumber', "gameid", 'src'],
+            where: {
+                piecenumber,
+                gameid,
+                src
+            }
         });
+        console.log(`${gameid} = gameid`);
+        console.log(`${piecenumber} = piecenumber`);
+        console.log(`${src} = src`);
+        console.log(`${thisPieces.length} = thisPieces.length`);
+        
+        if (thisPieces.length > 0) {
+            console.log(`thisPieces[0] = ${thisPieces[0]}`);
+            return thisPieces[0];
+        
+        }
+        else {
+            return null;
+        }
+    } catch (error) {
+        return null;
+    }
+}
+
+export const getPieceByType = async(gameid, typeofpiece) => {
+
+    try {
+        let thisPiece = await Piece.findAll({
+            attributes: ['playerid','piecenumber', "gameid", 'typeofpiece'],
+            where: {
+               
+                gameid,
+                typeofpiece
+            }
+        });
+       
         return thisPiece;
 
     } catch (error) {
@@ -86,15 +153,6 @@ export const updatePiece = async(pieceid, gameid, updatedisdead, dest) => {
     }
 }
 
-export const pieceAattackPieceB = async(gameId, id1, id2, dest) => {
-
-    try {
-        await updatePiece(id1, gameId, null, dest);
-        await updatePiece(id2, gameId, 1, null);
-    } catch (error) {
-        throw error;
-    }
-}
 
 
 // squares[0] = new Rook(2);
