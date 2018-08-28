@@ -122,7 +122,7 @@ export const getPieceByPosition = async(gameid, src) => {
         // console.log(`${thisPieces.length} = thisPieces.length`);
         
         if (thisPieces.length > 0) {
-            console.log(`thisPieces[0] = ${thisPieces[0]}`);
+            // console.log(`thisPieces[0] = ${thisPieces[0]}`);
             return thisPieces[0];
         
         }
@@ -134,22 +134,27 @@ export const getPieceByPosition = async(gameid, src) => {
     }
 }
 
-export const getPieceByType = async(gameid, typeofpiece) => {
+export const getPieceByType = async(gameid, piecenumber) => {
 
     try {
-        let thisPiece = await Piece.findAll({
+        let thisPieces = await Piece.findAll({
             attributes: ['playerid','piecenumber', "gameid", 'typeofpiece'],
             where: {
                
                 gameid,
-                typeofpiece
+                piecenumber
             }
         });
-       
-        return thisPiece;
+        if (thisPieces.length > 0) {
+            return thisPieces[0].typeofpiece;
+        }
+        else {
+            return null;
+        }
+        
 
     } catch (error) {
-        throw error;
+        return null;
     }
 }
 

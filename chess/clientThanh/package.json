@@ -1,0 +1,29 @@
+{
+  "name": "react-chess",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "material-ui": "^0.20.2",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.2",
+    "react-scripts": "^1.1.4",
+    "react-tap-event-plugin": "^3.0.3"
+  },
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "PORT=6001 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "homepage": "https://talhaawan.github.io/react-chess",
+  "description": "Two player chess game built with React js.",
+  "main": "index.js",
+  "devDependencies": {
+    "gh-pages": "^1.2.0"
+  },
+  "author": "Ltc",
+  "license": "ISC"
+}

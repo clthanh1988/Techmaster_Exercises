@@ -3,7 +3,7 @@ var router = express.Router();
 
 import { Player, insertPlayer, findPlayerById, updatePlayer, loginPlayer  } from '../models/Player';
 import { Game, createNewGame, getAvailableGames, updateGame  } from '../models/Game';
-import { Piece, addNewPiece, create32Pieces, updatePiece, pieceAattackPieceB, getPieceByPosition, getPieceByType } from '../models/Piece';
+import { Piece, addNewPiece, create32Pieces, updatePiece, getPieceByPosition, getPieceByType } from '../models/Piece';
 
 
 router.post('/createGame', async (req,res) => {   
@@ -143,10 +143,10 @@ router.post('/move', async (req,res) => {
         let foundPiece = await getPieceByPosition(gameid, dest);
     
         if (foundPiece) {            
-            console.log(`foundPiece.playerid = ${foundPiece.playerid}`);
-            console.log(`playerid = ${playerid}`);
-            if (JSON.stringify(foundPiece.playerid) == JSON.stringify(playerid)) {
-                console.log(`eeeeeee= ${foundPiece.playerid}`);
+            // console.log(`foundPiece.playerid = ${foundPiece.playerid}`);
+            // console.log(`playerid = ${playerid}`);
+            if (parseInt(foundPiece.playerid) === parseInt(playerid)) {
+                // console.log(`eeeeeee= ${foundPiece.playerid}`);
                 res.json({
                     status: 'failed',
                     message: 'Wrong move. Cannot move to own piece'
@@ -156,13 +156,19 @@ router.post('/move', async (req,res) => {
             // console.log(`foundPiece = ${foundPiece}`);
             else if(foundPiece.playerid !== playerid) {
                 //await pieceAattackPieceB(gameid, piecenumber, foundPiece.piecenumber, dest);
+                // let thisTypeOfPiece = await getPieceByType(gameid, piecenumber);
+
+                // switch (thisTypeOfPiece) {
+
+                // }
+
                 let result1 = await updatePiece(piecenumber, gameid, null, dest);
                 let result2 = await updatePiece(foundPiece.piecenumber, gameid, 1, dest);
                 // console.log(`foundPiece = ${JSON.stringify(foundPiece)}`);
                 res.json({
                     status: 'ok',
                     message: `Piece ${piecenumber} attacked piece ${foundPiece.piecenumber}`,
-                    data: result1, result2
+                    data: {result1, result2}
                 })
                 return;
             }
