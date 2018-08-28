@@ -78,7 +78,7 @@ export const updatePiece = async(piecenumber, gameid, updatedisdead, dest) => {
         });
         // console.log(thisPieces);
         if(thisPieces.length > 0) {
-            let selectedPiece = await Piece.findById(thisPieces[0].id);
+            var selectedPiece = await Piece.findById(thisPieces[0].id);
 
             await selectedPiece.update({
                 src: dest ? dest : selectedPiece.src,
@@ -91,35 +91,35 @@ export const updatePiece = async(piecenumber, gameid, updatedisdead, dest) => {
     }
 }
 
-export const pieceAattackPieceB = async(gameid, piecenumber1, piecenumber2, dest) => {
+// export const pieceAattackPieceB = async(gameid, piecenumber1, piecenumber2, dest) => {
 
-    try {
-        console.log(`piecenumber1 = ${piecenumber1}`);
-        console.log(`piecenumber2 = ${piecenumber2}`);
-        await updatePiece(piecenumber1, gameid, null, dest);
+//     try {
+//         console.log(`piecenumber1 = ${piecenumber1}`);
+//         console.log(`piecenumber2 = ${piecenumber2}`);
+//         await updatePiece(piecenumber1, gameid, null, dest);
         
-        await updatePiece(piecenumber2, gameid, 1, null);
+//         await updatePiece(piecenumber2, gameid, 1, null);
         
-    } catch (error) {
-        throw error;
-    }
-}
+//     } catch (error) {
+//         throw error;
+//     }
+// }
 
-export const getPieceByPosition = async(gameid, piecenumber, src) => {
+export const getPieceByPosition = async(gameid, src) => {
 
     try {
         let thisPieces = await Piece.findAll({
             attributes: ['playerid', 'piecenumber', "gameid", 'src'],
             where: {
-                piecenumber,
+                
                 gameid,
                 src
             }
         });
-        console.log(`${gameid} = gameid`);
-        console.log(`${piecenumber} = piecenumber`);
-        console.log(`${src} = src`);
-        console.log(`${thisPieces.length} = thisPieces.length`);
+        // console.log(`${gameid} = gameid`);
+        // console.log(`${piecenumber} = piecenumber`);
+        // console.log(`${src} = src`);
+        // console.log(`${thisPieces.length} = thisPieces.length`);
         
         if (thisPieces.length > 0) {
             console.log(`thisPieces[0] = ${thisPieces[0]}`);

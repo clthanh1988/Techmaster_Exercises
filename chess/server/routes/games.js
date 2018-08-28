@@ -140,40 +140,42 @@ router.post('/move', async (req,res) => {
         let { gameid, playerid, piecenumber, dest } = req.body;
         //Validate
         
-        let foundPiece = await getPieceByPosition(gameid, piecenumber, dest);
-
-        if (foundPiece) {
-            if(foundPiece.playerid == playerid) {
+        let foundPiece = await getPieceByPosition(gameid, dest);
+    
+        if (foundPiece) {            
+            console.log(`foundPiece.playerid = ${foundPiece.playerid}`);
+            console.log(`playerid = ${playerid}`);
+            if (JSON.stringify(foundPiece.playerid) == JSON.stringify(playerid)) {
+                console.log(`eeeeeee= ${foundPiece.playerid}`);
                 res.json({
                     status: 'failed',
                     message: 'Wrong move. Cannot move to own piece'
                 })
+                return;
             }
-            console.log(`foundPiece = ${foundPiece}`);
-            if(foundPiece.playerid !== playerid) {
-                await pieceAattackPieceB(gameid, piecenumber, foundPiece.piecenumber, dest);
-                console.log(`foundPiece = ${JSON.stringify(foundPiece)}`);
+            // console.log(`foundPiece = ${foundPiece}`);
+            else if(foundPiece.playerid !== playerid) {
+                //await pieceAattackPieceB(gameid, piecenumber, foundPiece.piecenumber, dest);
+                let result1 = await updatePiece(piecenumber, gameid, null, dest);
+                let result2 = await updatePiece(foundPiece.piecenumber, gameid, 1, dest);
+                // console.log(`foundPiece = ${JSON.stringify(foundPiece)}`);
                 res.json({
                     status: 'ok',
-                    message: `Piece ${piecenumber} attacked ${foundPiece.piecenumber} `,
-                    data: {}
+                    message: `Piece ${piecenumber} attacked piece ${foundPiece.piecenumber}`,
+                    data: result1, result2
                 })
+                return;
             }
-            else {
-                let result = await updatePiece(piecenumber, gameid, null, dest);
+            
+        }
+        else {
+            let result = await updatePiece(piecenumber, gameid, null, dest);
                 res.json({
                     status: 'ok',
                     message: '',
                     data: result
                 })
-            }
-        }
-        else {
-            res.json({
-                status: 'failed',
-                message: 'Cannot move a piece',
-                data: {}
-            })
+                return;
         }
     }
     catch(error) {
@@ -182,8 +184,8 @@ router.post('/move', async (req,res) => {
             data: {},
             message: 'Cannot move a piece' + error
         })
-
-    }
+        return;
+    }   
 })
 
 
