@@ -125,15 +125,6 @@ router.get('/getAvailablePlayers/:pageNumber', async (req,res) => {
 })
 
 
-// router.post('/getAvailablePlayers', async() => {
-//     try {
-//         let 
-//     }
-//     catch(error) {
-//         throw error;
-//     }
 
-
-// })
 
 module.exports = router;

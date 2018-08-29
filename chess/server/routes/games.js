@@ -3,7 +3,7 @@ var router = express.Router();
 
 import { Player, insertPlayer, findPlayerById, updatePlayer, loginPlayer  } from '../models/Player';
 import { Game, createNewGame, getAvailableGames, updateGame  } from '../models/Game';
-import { Piece, addNewPiece, create32Pieces, updatePiece, getPieceByPosition, getPieceByType } from '../models/Piece';
+import { Piece, addNewPiece, create32Pieces, updatePiece, getPieceByPosition, getPieceByType, getAllPiecesPosition } from '../models/Piece';
 
 
 router.post('/createGame', async (req,res) => {   
@@ -164,11 +164,13 @@ router.post('/move', async (req,res) => {
 
                 let result1 = await updatePiece(piecenumber, gameid, null, dest);
                 let result2 = await updatePiece(foundPiece.piecenumber, gameid, 1, dest);
+                let allPiecesPosition = await getAllPiecesPosition(gameid);
+                // EMIT
                 // console.log(`foundPiece = ${JSON.stringify(foundPiece)}`);
                 res.json({
                     status: 'ok',
                     message: `Piece ${piecenumber} attacked piece ${foundPiece.piecenumber}`,
-                    data: {result1, result2}
+                    data: {result1, result2, allPiecesPosition}
                 })
                 return;
             }

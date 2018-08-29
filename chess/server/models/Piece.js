@@ -158,6 +158,31 @@ export const getPieceByType = async(gameid, piecenumber) => {
     }
 }
 
+export const getAllPiecesPosition = async (gameid) => {
+    try {
+        let allPieces = await Piece.findAll({
+            attributes: ['piecenumber', "gameid", 'src'],
+            where: {
+               
+                gameid
+    
+            }
+        })
+        if (allPieces.length > 0) {
+            return allPieces;
+        }
+        else {
+            return null;
+        }
+    }
+    catch(error) {
+        return null;
+    }
+
+
+
+}
+
 
 
 // squares[0] = new Rook(2);

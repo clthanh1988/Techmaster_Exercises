@@ -12,12 +12,20 @@ server.listen(PORT, () =>{
 const util = require('util')
 var RoomsList = {};
 var mangUser = {};
+
 const insertPlayer = require('./api').insertPlayer;
+const loginPlayer = require('./api').loginPlayer;
+const updatePlayer = require('./api').updatePlayer;
+const createGame = require('./api').createGame;
+const startGame = require('./api').startGame;
+const move = require('./api').move;
+const getAvailablePlayers = require('./api').getAvailablePlayers;
+const getAvailableGames = require('./api').getAvailableGames;
 
 
 io.on("connection", async (socket) => {        
     try {
-        let jj = await insertPlayer();
+        let jj = await loginPlayer();
         console.log(`jj = ${JSON.stringify(jj)}`);
     } catch(e) {
         throw e;
