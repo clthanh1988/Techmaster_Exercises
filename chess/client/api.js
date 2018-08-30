@@ -1,16 +1,15 @@
-//email, password, name, isplaying, tokenkey
 const URL_REGISTER = "http://localhost:3000/players/register";
 const URL_LOGIN = "http://localhost:3000/players/login";
 const URL_UPDATE = "http://localhost:3000/players/update";
 const URL_CREATE_GAME = "http://localhost:3000/players/createGame";
 const URL_START_GAME = "http://localhost:3000/players/startGame";
 const URL_MOVE = "http://localhost:3000/players/move";
-const URL_GET_AVAI_PLAYERS = "http://localhost:3000/players/getAvailablePlayers/:pageNumber";
-const URL_GET_AVAI_GAMES = "http://localhost:3000/players/getAvailableGames/:pageNumber";
+const URL_GET_AVAI_PLAYERS = "http://localhost:3000/players/getAvailablePlayers";
+const URL_GET_AVAI_GAMES = "http://localhost:3000/players/getAvailableGames";
 
 var fetch = require("node-fetch");
 
-let insertPlayer = async (email, password, name, isplaying, tokenkey) => {
+let insertPlayer = async (email, password, name, isplaying, online) => {
     try {
         
         let params = {
@@ -24,12 +23,13 @@ let insertPlayer = async (email, password, name, isplaying, tokenkey) => {
               password,
               name,
               isplaying,
-              tokenkey
+              online
         })};
 
         let response = await fetch(
             URL_REGISTER, params);
         let responseJson = await response.json();
+        // console.log(responseJson); 
         return responseJson;
     } catch (error) {
         console.log(error);
@@ -60,7 +60,7 @@ let loginPlayer = async (email, password) => {
     } 
 };
 
-let updatePlayer = async (id, isplaying, name, password, tokenkey) => {
+let updatePlayer = async (id, isplaying, name, password, online) => {
     try {
         
         let params = {
@@ -74,7 +74,7 @@ let updatePlayer = async (id, isplaying, name, password, tokenkey) => {
               isplaying,
               name,
               password,
-              tokenkey
+              online
               
         })};
 
@@ -169,7 +169,7 @@ let getAvailablePlayers = async () => {
        let response = await fetch(
         URL_GET_AVAI_PLAYERS);
         let responseJson = await response.json();
-        return responseJson.movies;
+        return responseJson;
     } catch (error) {
         console.log(error);
     } 

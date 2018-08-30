@@ -85,7 +85,7 @@ $(document).ready(function() {
         $(".chatForm").show(1000);
         $("#currentUser").html(data);
         socket.Username = data;
-        console.log(socket.Username);
+        // console.log(socket.Username);
         
         $("#challengeButton").click(function() {
             var target = prompt("Your opponent's name", "Harry Potter");
@@ -94,7 +94,7 @@ $(document).ready(function() {
                 socket.emit("challenging",{challenger : data,target : target});
             }
     
-            console.log('clicked btnChallenge');
+            // console.log('clicked btnChallenge');
             
         });
    
@@ -128,9 +128,11 @@ socket.on("server-send-dangky-thatbai", function() {
 });
 
 socket.on("danh-sach-dang-online", function(mangUser) {
+    // console.log(mangUser)
     $("#boxContent").html("");
     
     for(i in mangUser) {
+        console.log(i)
         $("#boxContent").append(`<div class='userOnline'> <h5>${i}</h5>  </div>`); // <button name='${i}' id='${mangUser[i]}' class='challengeButton'  >Challenge</button>
     }
 
@@ -166,7 +168,7 @@ socket.on("wanna-fight", function(data) {
 });
 
 socket.on('challenge-status',(data)=>{
-    console.log('vao challege status');
+    // console.log('vao challege status');
     
     if(data.status==='accepted') {
         alert('Your opponent accepted the challenge')
@@ -242,7 +244,7 @@ let renbanco = () => {
 
 
                 piece.on('dragstart', function() {
-                    console.log('vao dragstart chua');
+                    // console.log('vao dragstart chua');
                     
                     socket.emit('picked', {name : i,color : Pieces[i].color} ,(resData) => {
                             if(resData) {
@@ -286,7 +288,8 @@ let renbanco = () => {
                     socket.emit('moved',{ sender : socket.Username, name : i,color: Pieces[i].color, type: Pieces[i].type,x: Pieces[i].x , y: Pieces[i].y, nextX : nxtx , nextY : nxty },(resData) => {
 
                              if (resData==="Invalid")
-                                {console.log('khong dc di nhu the');
+                                {
+                                    // console.log('khong dc di nhu the');
                                     piece.setPosition({
                                             x : Pieces[i].x*80,
                                             y : Pieces[i].y*80 
@@ -295,7 +298,7 @@ let renbanco = () => {
                                     layer.add(piece);
                                     // add the layer to the stage
                                     stage.add(layer);}
-                            else console.log(typeof resData);
+                            // else console.log(typeof resData);
                             
                         
                         });

@@ -17,7 +17,7 @@ export const Player = sequelize.define('player', {
     name: Sequelize.TEXT,
     password: Sequelize.TEXT,
     isplaying: Sequelize.INTEGER,
-    tokenkey: Sequelize.TEXT
+    online: Sequelize.INTEGER
     
 
 
@@ -30,22 +30,33 @@ Game.belongsTo(Player, { foreignKey: 'player1Id', targetKey: 'id' });
 Game.belongsTo(Player, { foreignKey: 'player2Id', targetKey: 'id' });
 */
 
-export const insertPlayer = async (email, password, name, isplaying, tokenkey) => {
+export const insertPlayer = async (email, password, name, isplaying, online) => {
 
     try {
-        let insertedPlayer = await Player.create({
+        let checkPlayerName = await Player.findOne({
+            where: {
+                name
+            }
             
-            email,
-            password,
-            name,
-            isplaying,
-            tokenkey
-        }, {
-            fields: ["email", "password", 'name', 'isplaying', 'tokenkey']
-        });
-        
-
-        return insertedPlayer ? insertedPlayer : {}
+        }) 
+        if (!checkPlayerName) {
+            let insertedPlayer = await Player.create({
+            
+                email,
+                password,
+                name,
+                isplaying,
+                online
+            }, {
+                fields: ["email", "password", 'name', 'isplaying', 'online']
+            });
+            
+    
+            return insertedPlayer ? insertedPlayer : {}
+        }
+        else {
+            return null;
+        }
 
     } catch (error) {
         throw error;
@@ -102,20 +113,22 @@ export const findAllPlayers = async() => {
     }
 }
 
-export const getAvailablePlayers = async(pageNumber) => {
+export const getAvailablePlayers = async() => {
     try {
         
         let onlinePlayers = await Player.findAll({
-            attributes: ["id", "email", "password", 'isplaying', 'tokenkey'],
+            attributes: ["id", 'name',"email", "password", 'isplaying', 'online'],
             where: {
-                isplaying: 0
-            },
-            offset: pageNumber * 10,
-            limit: 10
+                isplaying: 0,
+                online: 1
+            }
+            // ,
+            // offset: pageNumber * 10,
+            // limit: 10
         })
 
 
-        if(!onlinePlayers) {
+        if(onlinePlayers.length < 0) {
             return {}
         }
         else {
@@ -128,7 +141,7 @@ export const getAvailablePlayers = async(pageNumber) => {
     }
 }
 
-export const updatePlayer = async(id, newIsplaying, newName, newPassword, newTokenkey) => {
+export const updatePlayer = async(id, newIsplaying, newName, newPassword, newonline) => {
     try {
         let thisPlayer = await Player.findById(id);
 
@@ -138,7 +151,7 @@ export const updatePlayer = async(id, newIsplaying, newName, newPassword, newTok
             isplaying: newIsplaying ? newIsplaying : thisPlayer.isplaying,
             name: newName ? newName : thisPlayer.name,
             password: newPassword ? newPassword : thisPlayer.password,
-            tokenkey: newTokenkey ? newTokenkey : thisPlayer.tokenkey
+            online: newonline ? newonline : thisPlayer.online
             
         });
         return thisPlayer;

@@ -14,6 +14,7 @@ router.post('/createGame', async (req,res) => {
         console.log(player2id);
 
         if (player1id < 0 && player2id < 0) {
+            socket.emit('server-send-createGameFail')
             res.json({
                 status: 'failed',
                 data: {},
@@ -22,9 +23,9 @@ router.post('/createGame', async (req,res) => {
         } 
         else {
             let newGame = await createNewGame(player1id, player2id, description);
-            console.log('eee')
+            // console.log('eee')
             if (newGame) {       
-                
+                socket.emit('server-send-createGameSuccess')
                 res.json({
 
                     status: 'ok',
@@ -34,7 +35,7 @@ router.post('/createGame', async (req,res) => {
             } 
             
             else {
-    
+                socket.emit('server-send-createGameFail')
                 res.json({
                     status: 'false',
                     data: {},
@@ -57,6 +58,7 @@ router.post('/startGame', async (req,res) => {
         let { id, player1id, player2id, description } = req.body;
         
         if (player1id < 0 || player2id < 0) {
+            socket.emit('server-send-startGameFail')
             res.json({
                 status: 'failed',
                 data: {},
@@ -74,7 +76,7 @@ router.post('/startGame', async (req,res) => {
             await create32Pieces(player1id, player2id, id);
             
             if (newGame) {
-                
+                socket.emit('server-send-startGameSuccess')
                 res.json({
                     status: 'ok',
                     data: newGame,
@@ -82,7 +84,7 @@ router.post('/startGame', async (req,res) => {
                 })
             } 
             else {
-    
+                socket.emit('server-send-startGameFail')
                 res.json({
                     status: 'false',
                     data: {},
@@ -105,11 +107,11 @@ router.post('/startGame', async (req,res) => {
 
 
 
-router.get('/getAvailableGames/:pageNumber', async (req,res) => {   
+router.get('/getAvailableGames', async (req,res) => {   
     try {
-        const {pageNumber} = req.params;
+        // const {pageNumber} = req.params;
         //Validate
-        let availableGames = await getAvailableGames(pageNumber);                
+        let availableGames = await getAvailableGames();                
         if (!availableGames) {
             
             res.json({
@@ -147,6 +149,7 @@ router.post('/move', async (req,res) => {
             // console.log(`playerid = ${playerid}`);
             if (parseInt(foundPiece.playerid) === parseInt(playerid)) {
                 // console.log(`eeeeeee= ${foundPiece.playerid}`);
+                socket.emit('server-send-own-move')
                 res.json({
                     status: 'failed',
                     message: 'Wrong move. Cannot move to own piece'
@@ -167,6 +170,7 @@ router.post('/move', async (req,res) => {
                 let allPiecesPosition = await getAllPiecesPosition(gameid);
                 // EMIT
                 // console.log(`foundPiece = ${JSON.stringify(foundPiece)}`);
+                io.sockets.emit('server-send-moveSuccess')
                 res.json({
                     status: 'ok',
                     message: `Piece ${piecenumber} attacked piece ${foundPiece.piecenumber}`,
@@ -178,6 +182,7 @@ router.post('/move', async (req,res) => {
         }
         else {
             let result = await updatePiece(piecenumber, gameid, null, dest);
+            io.sockets.emit('server-send-moveSuccess')
                 res.json({
                     status: 'ok',
                     message: '',
@@ -196,7 +201,10 @@ router.post('/move', async (req,res) => {
     }   
 })
 
+// const endGame = async() => {
 
+
+// }
 
 
 

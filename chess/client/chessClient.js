@@ -9,9 +9,12 @@ const PORT = 3003;
 server.listen(PORT, () =>{
     console.log(`client is listening on ${PORT}`) ;
 });
-const util = require('util')
+const util = require('util');
+
 var RoomsList = {};
 var mangUser = {};
+
+
 
 const insertPlayer = require('./api').insertPlayer;
 const loginPlayer = require('./api').loginPlayer;
@@ -23,29 +26,46 @@ const getAvailablePlayers = require('./api').getAvailablePlayers;
 const getAvailableGames = require('./api').getAvailableGames;
 
 
+
 io.on("connection", async (socket) => {        
-    try {
-        let jj = await loginPlayer();
-        console.log(`jj = ${JSON.stringify(jj)}`);
-    } catch(e) {
-        throw e;
-    }
-    socket.on("client-send-username",function(data) {    
-        
-    if ( mangUser[`'${data}'`] || data=="" ) {
+    // try {
+    //     let jj = await loginPlayer();
+    //     console.log(`jj = ${JSON.stringify(jj)}`);
+    // } catch(e) {
+    //     throw e;
+    // }
+    socket.on("client-send-username", async(data) => {    
+    // console.log(data);
+    const aa = await insertPlayer(data, data, data, 0, 1);
+    // console.log(aa);
+    // let playersList = await getAvailablePlayers();
+    var playersList = await getAvailablePlayers();
+    console.log(playersList.data);    
+
+    if ( aa.status != 'ok' ) {
+
         socket.emit("server-send-dangky-thatbai");   
     }
     else {
-        mangUser[`${data}`]=socket.id;
+        // mangUser[`${data}`]= socket.id;
         socket.Username = data;
-        socket.emit("server-send-dangky-thanhcong",data);
-        io.sockets.emit("danh-sach-dang-online", mangUser); 
+        socket.join('total');
+        socket.emit("server-send-dangky-thanhcong", data);
+        
+        io.in('total').emit('danh-sach-dang-online', playersList.data);
+
+
+        // io.sockets.emit("danh-sach-dang-online", mangUser); 
     }  
     });
 
     socket.on("logout", function () {
-        delete mangUser[`${socket.Username}`] ;       
-        socket.broadcast.emit("danh-sach-dang-online",mangUser);
+        // console.log();
+        
+        delete playersList[`${socket.Username}`];
+        // delete playersList.data[`${socket.Username}`];
+        socket.leave('total');        
+        socket.broadcast.emit("danh-sach-dang-online", playersList.data);
 
     });
 

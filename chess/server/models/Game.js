@@ -45,7 +45,7 @@ export const createNewGame = async (player1id, player2id, description) => {
     }
 }
 
-export const getAvailableGames = async(pageNumber) => {
+export const getAvailableGames = async() => {
     try {
        
         
@@ -54,9 +54,10 @@ export const getAvailableGames = async(pageNumber) => {
             where: {
                 [Op.or]: [{player1id: -1}, {player2id: -1}]
                 
-            },
-            offset: pageNumber * 10,
-            limit: 10
+            }
+            // ,
+            // offset: pageNumber * 10,
+            // limit: 10
         })
 
 
