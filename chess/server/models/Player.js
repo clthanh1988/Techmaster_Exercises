@@ -78,7 +78,7 @@ export const findPlayerById = async(id) => {
 export const loginPlayer = async(email, password) => {
     try {
         var allPlayers = await Player.findAll({
-            attributes: ["id", "email", "password", 'name'],
+            attributes: ["id", "email", "password", 'name', 'online'],
             where: {
                 email,
                 password
@@ -144,6 +144,8 @@ export const getAvailablePlayers = async() => {
 export const updatePlayer = async(id, newIsplaying, newName, newPassword, newonline) => {
     try {
         let thisPlayer = await Player.findById(id);
+        // console.log(`id = ${id}`);
+        // console.log(thisPlayer);
 
         // Phải có thisPlayer để gán giá trị
         

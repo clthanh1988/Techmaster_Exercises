@@ -14,22 +14,22 @@ export const Piece = sequelize.define('piece', {
     src: Sequelize.INTEGER,
     isdead: Sequelize.INTEGER,
 
-    gameid: Sequelize.INTEGER
+    roomname: Sequelize.TEXT
 }, { timestamps: false });
 
-export const addNewPiece = async(piecenumber, typeofpiece, playerid, src, isdead, gameid) => {
+export const addNewPiece = async(piecenumber, typeofpiece, playerid, src, isdead, roomname) => {
     // console.log(`piecenumber = ${piecenumber}`);
     // console.log(`typeofpiece = ${typeofpiece}`);
     // console.log(`playerid = ${playerid}`);
     // console.log(`src = ${src}`);
     // console.log(`isdead = ${isdead}`);
-    // console.log(`gameid = ${gameid}`);
+    // console.log(`roomname = ${roomname}`);
     try {
         
         await Piece.create({
-            piecenumber, typeofpiece, playerid, src, isdead, gameid
+            piecenumber, typeofpiece, playerid, src, isdead, roomname
         }, {
-            fields: ['piecenumber', 'typeofpiece', 'playerid', 'src', 'isdead', 'gameid']
+            fields: ['piecenumber', 'typeofpiece', 'playerid', 'src', 'isdead', 'roomname']
         });
         
     } catch (error) {
@@ -37,43 +37,43 @@ export const addNewPiece = async(piecenumber, typeofpiece, playerid, src, isdead
     }
 }
 
-export const create32Pieces = async(player1id, player2id, gameid) => {
-    await addNewPiece(0, "R", player2id, 0, 0, gameid)
-    await addNewPiece(1, 'N', player2id, 1, 0, gameid)
-    await addNewPiece(2, 'B', player2id, 2, 0, gameid) 
-    await addNewPiece(3, 'Q', player2id, 3, 0, gameid) 
-    await addNewPiece(4, 'K', player2id, 4, 0, gameid) 
-    await addNewPiece(5, 'B', player2id, 5, 0, gameid) 
-    await addNewPiece(6, 'N', player2id, 6, 0, gameid) 
-    await addNewPiece(7, 'R', player2id, 7, 0, gameid)
+export const create32Pieces = async(player1id, player2id, roomname) => {
+    await addNewPiece(0, "R", player2id, 0, 0, roomname)
+    await addNewPiece(1, 'N', player2id, 1, 0, roomname)
+    await addNewPiece(2, 'B', player2id, 2, 0, roomname) 
+    await addNewPiece(3, 'Q', player2id, 3, 0, roomname) 
+    await addNewPiece(4, 'K', player2id, 4, 0, roomname) 
+    await addNewPiece(5, 'B', player2id, 5, 0, roomname) 
+    await addNewPiece(6, 'N', player2id, 6, 0, roomname) 
+    await addNewPiece(7, 'R', player2id, 7, 0, roomname)
 
     for (let i = 8; i < 16; i++) {
-        await addNewPiece(i, 'P', player2id, i, 0, gameid)
+        await addNewPiece(i, 'P', player2id, i, 0, roomname)
     }
 
-    await addNewPiece(56, 'R', player1id, 56, 0, gameid) 
-    await addNewPiece(57, 'N', player1id, 57, 0, gameid) 
-    await addNewPiece(58, 'B', player1id, 58, 0, gameid) 
-    await addNewPiece(59, 'Q', player1id, 59, 0, gameid) 
-    await addNewPiece(60, 'K', player1id, 60, 0, gameid) 
-    await addNewPiece(61, 'B', player1id, 61, 0, gameid) 
-    await addNewPiece(62, 'N', player1id, 62, 0, gameid) 
-    await addNewPiece(63, 'R', player1id, 63, 0, gameid)
+    await addNewPiece(56, 'R', player1id, 56, 0, roomname) 
+    await addNewPiece(57, 'N', player1id, 57, 0, roomname) 
+    await addNewPiece(58, 'B', player1id, 58, 0, roomname) 
+    await addNewPiece(59, 'Q', player1id, 59, 0, roomname) 
+    await addNewPiece(60, 'K', player1id, 60, 0, roomname) 
+    await addNewPiece(61, 'B', player1id, 61, 0, roomname) 
+    await addNewPiece(62, 'N', player1id, 62, 0, roomname) 
+    await addNewPiece(63, 'R', player1id, 63, 0, roomname)
 
     for (let i = 48; i < 56; i++) {
-        await addNewPiece(i, 'P', player1id, i, 0, gameid)
+        await addNewPiece(i, 'P', player1id, i, 0, roomname)
     }
 }
 
-export const updatePiece = async(piecenumber, gameid, updatedisdead, dest) => {
+export const updatePiece = async(piecenumber, roomname, updatedisdead, dest) => {
 
     try {
         
         let thisPieces = await Piece.findAll({
-            attributes: ["id", 'piecenumber', "gameid", 'typeofpiece', 'playerid', 'src', 'isdead'],
+            attributes: ["id", 'piecenumber', "roomname", 'typeofpiece', 'playerid', 'src', 'isdead'],
             where: {
                 piecenumber,
-                gameid
+                roomname
             }
         });
         // console.log(thisPieces);
@@ -91,32 +91,32 @@ export const updatePiece = async(piecenumber, gameid, updatedisdead, dest) => {
     }
 }
 
-// export const pieceAattackPieceB = async(gameid, piecenumber1, piecenumber2, dest) => {
+// export const pieceAattackPieceB = async(roomname, piecenumber1, piecenumber2, dest) => {
 
 //     try {
 //         console.log(`piecenumber1 = ${piecenumber1}`);
 //         console.log(`piecenumber2 = ${piecenumber2}`);
-//         await updatePiece(piecenumber1, gameid, null, dest);
+//         await updatePiece(piecenumber1, roomname, null, dest);
         
-//         await updatePiece(piecenumber2, gameid, 1, null);
+//         await updatePiece(piecenumber2, roomname, 1, null);
         
 //     } catch (error) {
 //         throw error;
 //     }
 // }
 
-export const getPieceByPosition = async(gameid, src) => {
+export const getPieceByPosition = async(roomname, src) => {
 
     try {
         let thisPieces = await Piece.findAll({
-            attributes: ['playerid', 'piecenumber', "gameid", 'src'],
+            attributes: ['playerid', 'piecenumber', "roomname", 'src'],
             where: {
                 
-                gameid,
+                roomname,
                 src
             }
         });
-        // console.log(`${gameid} = gameid`);
+        // console.log(`${roomname} = roomname`);
         // console.log(`${piecenumber} = piecenumber`);
         // console.log(`${src} = src`);
         // console.log(`${thisPieces.length} = thisPieces.length`);
@@ -134,14 +134,14 @@ export const getPieceByPosition = async(gameid, src) => {
     }
 }
 
-export const getPieceByType = async(gameid, piecenumber) => {
+export const getPieceByType = async(roomname, piecenumber) => {
 
     try {
         let thisPieces = await Piece.findAll({
-            attributes: ['playerid','piecenumber', "gameid", 'typeofpiece'],
+            attributes: ['playerid','piecenumber', "roomname", 'typeofpiece'],
             where: {
                
-                gameid,
+                roomname,
                 piecenumber
             }
         });
@@ -158,13 +158,13 @@ export const getPieceByType = async(gameid, piecenumber) => {
     }
 }
 
-export const getAllPiecesPosition = async (gameid) => {
+export const getAllPiecesPosition = async (roomname) => {
     try {
         let allPieces = await Piece.findAll({
-            attributes: ['piecenumber', "gameid", 'src'],
+            attributes: ['piecenumber', "roomname", 'src'],
             where: {
                
-                gameid
+                roomname
     
             }
         })

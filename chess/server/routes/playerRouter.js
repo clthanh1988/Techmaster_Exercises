@@ -59,11 +59,11 @@ router.post('/login', async (req,res) => {
         //Validate
         let loggedPlayer = await loginPlayer(email, password);                
         if (loggedPlayer) {
-            updatePlayer(null, 0, null, null, 1);
+            let aa = await updatePlayer(loggedPlayer.id, 0, null, null, 1);
             // socket.emit('server-send-loginSuccess')
             res.json({
                 status: 'ok',
-                data: loggedPlayer,
+                data: aa,
                 message: "Login Player success"
             })
         } else {
@@ -127,7 +127,7 @@ router.get('/getAvailablePlayers', async (req,res) => {
         availablePlayers.forEach(player => {
             mapPlayers[player.name] = player;
         })
-        // console.log(`mapPlayers = ${JSON.stringify(mapPlayers)}`);
+        console.log(`mapPlayers = ${JSON.stringify(mapPlayers)}`);
         if(!availablePlayers) {
             res.json({
                 result: 'false',
@@ -141,6 +141,7 @@ router.get('/getAvailablePlayers', async (req,res) => {
                 data: mapPlayers,
                 message: 'get available players success'
             })
+            return;
         }
     }
     catch(error) {

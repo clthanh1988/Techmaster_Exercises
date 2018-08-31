@@ -11,12 +11,12 @@ export const Game = sequelize.define('game', {
         autoIncrement: true
     },
     player1id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
     },
     player2id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
     },
-    description: Sequelize.TEXT
+    roomname: Sequelize.TEXT
 
 }, { timestamps: false });
 
@@ -24,23 +24,24 @@ export const Game = sequelize.define('game', {
 // Piece.belongsTo(Game, { foreignKey: 'gameId', targetKey: 'gameId' });
 
 
-export const createNewGame = async (player1id, player2id, description) => {
+export const createNewGame = async (player1id, player2id) => {
     try {
-        if (player1id < 0 && player2id < 0) {
+        if (!player1id && !player2id) {
             return null;
         } 
         // console.log(player1);
         // console.log(player2);
+        
         let newGame = await Game.create({
             player1id,
             player2id,
-            description
+            roomname: player1id + "-" + player2id
         }, {
-            fields: ['player1id', 'player2id', 'description']
+            fields: ['player1id', 'player2id', 'roomname']
         });
         return newGame;
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return null;
     }
 }
@@ -50,7 +51,7 @@ export const getAvailableGames = async() => {
        
         
         let availableGames = await Game.findAll({
-            attributes: ['id','player1id', 'player2id', 'description'],
+            attributes: ['id','player1id', 'player2id', 'roomname'],
             where: {
                 [Op.or]: [{player1id: -1}, {player2id: -1}]
                 
@@ -76,14 +77,18 @@ export const getAvailableGames = async() => {
 
 }
 
-export const updateGame = async (id, newplayer1id, newplayer2id, newdescription) => {
+export const updateGame = async ( newplayer1id, newplayer2id, newroomname) => {
     try {
-        let updatedGame = await Game.findById(id)
+        let updatedGame = await Game.findOne({
+            where: {
+                roomname
+            }
+        })
 
         await updatedGame.update({
             player1id: newplayer1id ? newplayer1id : updatedGame.player1id,
             player2id: newplayer2id ? newplayer2id : updatedGame.player2id,
-            description: newdescription ? newdescription : updatedGame.description
+            roomname: newroomname ? newroomname : updatedGame.roomname
             
         });
         return updatedGame;
@@ -93,3 +98,19 @@ export const updateGame = async (id, newplayer1id, newplayer2id, newdescription)
 
     }
 }
+
+// export const getGameFromPlayers = async(player1id, player2id) => {
+//     try {
+//         let foundGame = await Game.findOne({
+//             where: {
+//                 player1id,
+//                 player2id
+//             }
+//         })
+//         return foundGame
+//     }
+//     catch(error) {
+//         return null
+//     }
+
+// }

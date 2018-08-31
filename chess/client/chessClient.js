@@ -36,27 +36,27 @@ io.on("connection", async (socket) => {
     // }
     socket.on("client-send-username", async(data) => {    
     // console.log(data);
-    const aa = await insertPlayer(data, data, data, 0, 1);
+        const aa = await insertPlayer(data, data, data, 0, 1);
     // console.log(aa);
     // let playersList = await getAvailablePlayers();
-    var playersList = await getAvailablePlayers();
-    console.log(playersList.data);    
+        var playersList = await getAvailablePlayers();
+        console.log(playersList.data);    
 
-    if ( aa.status != 'ok' ) {
+        if ( aa.status != 'ok' ) {
 
-        socket.emit("server-send-dangky-thatbai");   
-    }
-    else {
-        // mangUser[`${data}`]= socket.id;
-        socket.Username = data;
-        socket.join('total');
-        socket.emit("server-send-dangky-thanhcong", data);
+            socket.emit("server-send-dangky-thatbai");   
+        }
+        else {
+            // mangUser[`${data}`]= socket.id;
+            socket.Username = data;
+            socket.join('total');
+            socket.emit("server-send-dangky-thanhcong", data);
         
-        io.in('total').emit('danh-sach-dang-online', playersList.data);
+            io.in('total').emit('danh-sach-dang-online', playersList.data);
 
 
         // io.sockets.emit("danh-sach-dang-online", mangUser); 
-    }  
+        }  
     });
 
     socket.on("logout", function () {

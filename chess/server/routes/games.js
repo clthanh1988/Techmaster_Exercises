@@ -2,19 +2,19 @@ var express = require('express');
 var router = express.Router();
 
 import { Player, insertPlayer, findPlayerById, updatePlayer, loginPlayer  } from '../models/Player';
-import { Game, createNewGame, getAvailableGames, updateGame  } from '../models/Game';
+import { Game, createNewGame, getAvailableGames, updateGame, getGameFromPlayers  } from '../models/Game';
 import { Piece, addNewPiece, create32Pieces, updatePiece, getPieceByPosition, getPieceByType, getAllPiecesPosition } from '../models/Piece';
 
 
 router.post('/createGame', async (req,res) => {   
     try {
-        let { player1id, player2id, description } = req.body;
+        let { player1id, player2id, roomname } = req.body;
         //Validate
-        console.log(player1id);
-        console.log(player2id);
+        // console.log(player1id);
+        // console.log(player2id);
 
         if (player1id < 0 && player2id < 0) {
-            socket.emit('server-send-createGameFail')
+            // socket.emit('server-send-createGameFail')
             res.json({
                 status: 'failed',
                 data: {},
@@ -22,10 +22,10 @@ router.post('/createGame', async (req,res) => {
             })
         } 
         else {
-            let newGame = await createNewGame(player1id, player2id, description);
+            let newGame = await createNewGame(player1id, player2id, roomname);
             // console.log('eee')
             if (newGame) {       
-                socket.emit('server-send-createGameSuccess')
+                // socket.emit('server-send-createGameSuccess')
                 res.json({
 
                     status: 'ok',
@@ -35,7 +35,7 @@ router.post('/createGame', async (req,res) => {
             } 
             
             else {
-                socket.emit('server-send-createGameFail')
+                // socket.emit('server-send-createGameFail')
                 res.json({
                     status: 'false',
                     data: {},
@@ -53,12 +53,65 @@ router.post('/createGame', async (req,res) => {
 
 })
 
+// router.post('/startGame', async (req,res) => {   
+//     try {
+//         let { id, player1id, player2id, roomname } = req.body;
+        
+//         if (player1id < 0 || player2id < 0) {
+//             // socket.emit('server-send-startGameFail')
+//             res.json({
+//                 status: 'failed',
+//                 data: {},
+//                 message: "Cannot start a new game. all players ID must have"
+//             })
+//         } 
+//         else {
+            
+//             let newGame = await updateGame(id, player1id, player2id, roomname);
+            
+//             await updatePlayer(player1id, 1, null, null, null);
+            
+//             await updatePlayer(player2id, 1, null, null, null);
+            
+//             await create32Pieces(player1id, player2id, id);
+            
+//             if (newGame) {
+//                 socket.emit('server-send-startGameSuccess')
+//                 res.json({
+//                     status: 'ok',
+//                     data: newGame,
+//                     message: 'Start game success'
+//                 })
+//             } 
+//             else {
+//                 socket.emit('server-send-startGameFail')
+//                 res.json({
+//                     status: 'false',
+//                     data: {},
+//                     message: "Cannot start a game!"
+//                 })    
+//             }    
+//         }
+        
+        
+                    
+//     } catch(error) {
+//         res.json({
+//             status: 'false',
+//             data: {},
+//             message: "Cannot start a game" +error
+//         })
+//     }
+
+// })
+
 router.post('/startGame', async (req,res) => {   
     try {
-        let { id, player1id, player2id, description } = req.body;
-        
-        if (player1id < 0 || player2id < 0) {
-            socket.emit('server-send-startGameFail')
+        let { player1id, player2id } = req.body;
+        // const roomname = player1id + '-' + player2id;
+        // let thisGame = await getGameFromPlayers(player1id, player2id);
+        if (!player1id || !player2id) {
+            // socket.emit('server-send-startGameFail')
             res.json({
                 status: 'failed',
                 data: {},
@@ -67,16 +120,16 @@ router.post('/startGame', async (req,res) => {
         } 
         else {
             
-            let newGame = await updateGame(id, player1id, player2id, description);
+            let newGame = await createNewGame(player1id, player2id);
             
             await updatePlayer(player1id, 1, null, null, null);
             
             await updatePlayer(player2id, 1, null, null, null);
             
-            await create32Pieces(player1id, player2id, id);
+            await create32Pieces(player1id, player2id, newGame.roomname);
             
             if (newGame) {
-                socket.emit('server-send-startGameSuccess')
+                // socket.emit('server-send-startGameSuccess')
                 res.json({
                     status: 'ok',
                     data: newGame,
@@ -84,7 +137,7 @@ router.post('/startGame', async (req,res) => {
                 })
             } 
             else {
-                socket.emit('server-send-startGameFail')
+                // socket.emit('server-send-startGameFail')
                 res.json({
                     status: 'false',
                     data: {},
