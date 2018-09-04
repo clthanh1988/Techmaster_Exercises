@@ -1,9 +1,17 @@
-import { sequelize, Op } from '../databases/database';
+import {
+    sequelize,
+    Op
+} from '../databases/database';
 import Sequelize from 'sequelize';
-import { Game } from './Game';
+import {
+    Game
+} from './Game';
 
 import {
-  isEmpty,toDate, isURL, isEmail
+    isEmpty,
+    toDate,
+    isURL,
+    isEmail
 } from 'validator';
 
 
@@ -17,11 +25,15 @@ export const Player = sequelize.define('player', {
     name: Sequelize.TEXT,
     password: Sequelize.TEXT,
     isplaying: Sequelize.INTEGER,
-    online: Sequelize.INTEGER
-    
+    online: Sequelize.INTEGER,
+    roomname: Sequelize.TEXT,
+    socketid: Sequelize.TEXT
 
 
-}, { timestamps: false });
+
+}, {
+    timestamps: false
+});
 /*
 Player.hasMany(Game, { foreignKey: 'player1Id', sourceKey: 'id' });
 Player.hasMany(Game, { foreignKey: 'player2Id', sourceKey: 'id' });
@@ -30,31 +42,32 @@ Game.belongsTo(Player, { foreignKey: 'player1Id', targetKey: 'id' });
 Game.belongsTo(Player, { foreignKey: 'player2Id', targetKey: 'id' });
 */
 
-export const insertPlayer = async (email, password, name, isplaying, online) => {
+export const insertPlayer = async (email, password, name, isplaying, online, roomname) => {
 
     try {
         let checkPlayerName = await Player.findOne({
             where: {
                 name
             }
-            
-        }) 
+
+        })
         if (!checkPlayerName) {
             let insertedPlayer = await Player.create({
-            
+
                 email,
                 password,
                 name,
                 isplaying,
-                online
+                online,
+                roomname
+
             }, {
-                fields: ["email", "password", 'name', 'isplaying', 'online']
+                fields: ["email", "password", 'name', 'isplaying', 'online', 'roomname']
             });
-            
-    
+
+
             return insertedPlayer ? insertedPlayer : {}
-        }
-        else {
+        } else {
             return null;
         }
 
@@ -63,7 +76,7 @@ export const insertPlayer = async (email, password, name, isplaying, online) => 
     }
 }
 
-export const findPlayerById = async(id) => {
+export const findPlayerById = async (id) => {
     try {
         var player = await Player.findById(id);
         if (!player) {
@@ -75,15 +88,29 @@ export const findPlayerById = async(id) => {
         throw error;
     }
 }
-export const loginPlayer = async(email, password) => {
+export const loginPlayer = async (data) => {
+    // console.log(data)
+    const {userName,password, socketid} = data
     try {
-        var allPlayers = await Player.findAll({
-            attributes: ["id", "email", "password", 'name', 'online'],
+        // console.log(`email: ${email}`);
+        // console.log(`password: ${password}`);
+        // console.log(`socketid: ${socketid}`);
+        const updateSocket = await Player.update({
+            socketid
+        }, {
             where: {
-                email,
+                email: userName
+            }
+        })
+        var allPlayers = await Player.findAll({
+            attributes: ["id", "email", "password", 'name', 'online', 'roomname', 'socketid'],
+            where: {
+                email: userName,
                 password
             }
         });
+        // console.log(updateSocket)
+        console.log(`allPlayers = ${allPlayers}`)
 
         if (allPlayers.length > 0) {
             return allPlayers[0];
@@ -98,7 +125,7 @@ export const loginPlayer = async(email, password) => {
 
 
 
-export const findAllPlayers = async() => {
+export const findAllPlayers = async () => {
     try {
         var allPlayers = await Player.findAll({
             attributes: ["id", "email", "password"]
@@ -113,11 +140,11 @@ export const findAllPlayers = async() => {
     }
 }
 
-export const getAvailablePlayers = async() => {
+export const getAvailablePlayers = async () => {
     try {
-        
+
         let onlinePlayers = await Player.findAll({
-            attributes: ["id", 'name',"email", "password", 'isplaying', 'online'],
+            attributes: ["id", 'name', "email", "password", 'isplaying', 'online', 'roomname', 'socketid'],
             where: {
                 isplaying: 0,
                 online: 1
@@ -128,39 +155,55 @@ export const getAvailablePlayers = async() => {
         })
 
 
-        if(onlinePlayers.length < 0) {
+        if (onlinePlayers.length < 0) {
             return {}
-        }
-        else {
-            
+        } else {
+
             return onlinePlayers
         }
-    }
-    catch(error) {
+    } catch (error) {
         throw error
     }
 }
 
-export const updatePlayer = async(id, newIsplaying, newName, newPassword, newonline) => {
+export const findInfoByPlayer = async(name) => {
+    try {
+        let foundInfo = await Player.findOne({
+            where: {
+                name
+            }
+        })
+        // console.log(foundInfo);
+        return foundInfo;
+    }
+    catch(error) {
+        throw error
+    }
+
+
+}
+
+export const updatePlayer = async (id, newIsplaying, newName, newPassword, newonline, newroomname, newsocketid) => {
     try {
         let thisPlayer = await Player.findById(id);
         // console.log(`id = ${id}`);
         // console.log(thisPlayer);
 
         // Phải có thisPlayer để gán giá trị
-        
+
         await thisPlayer.update({
             isplaying: newIsplaying ? newIsplaying : thisPlayer.isplaying,
             name: newName ? newName : thisPlayer.name,
             password: newPassword ? newPassword : thisPlayer.password,
-            online: newonline ? newonline : thisPlayer.online
-            
+            online: newonline ? newonline : thisPlayer.online,
+            roomname: newroomname ? newroomname : thisPlayer.roomname,
+            socketid: newsocketid ? newsocketid : thisPlayer.socketid
         });
         return thisPlayer;
 
     } catch (error) {
         throw error;
     }
-    
+
 
 }

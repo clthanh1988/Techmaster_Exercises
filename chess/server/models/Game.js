@@ -39,6 +39,7 @@ export const createNewGame = async (player1id, player2id) => {
         }, {
             fields: ['player1id', 'player2id', 'roomname']
         });
+        
         return newGame;
     } catch (error) {
         // console.log(error);

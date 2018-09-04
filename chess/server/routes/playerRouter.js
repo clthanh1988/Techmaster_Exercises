@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-import { Player, insertPlayer, findPlayerById, loginPlayer, getAvailablePlayers, updatePlayer, findAllPlayers } from '../models/Player';
+import { Player, insertPlayer, findPlayerById, loginPlayer, getAvailablePlayers, updatePlayer, findAllPlayers, findInfoByPlayer } from '../models/Player';
 import { Game, createNewGame  } from '../models/Game';
 import { Piece, addNewPiece, create32Pieces, updatePiece, pieceAattackPieceB  } from '../models/Piece';
 
@@ -20,11 +20,11 @@ router.get('/findAll', async(req, res) => {
 
 router.post('/register', async (req,res) => {   
     try {
-        let { email, password, name, isplaying, online } = req.body;
+        let { email, password, name, isplaying, online, roomname, socketid } = req.body;
         // console.log(`name = ${name}`);
         //Validate
 
-        let newPlayer = await insertPlayer(email, password, name, isplaying, online);                
+        let newPlayer = await insertPlayer(email, password, name, isplaying, online, roomname, socketid);                
         if (newPlayer) {
             // socket.emit('server-send-insertSuccess')
 
@@ -55,11 +55,11 @@ router.post('/register', async (req,res) => {
 })
 router.post('/login', async (req,res) => {   
     try {
-        let { email, password } = req.body;
+        let { email, password, socketid } = req.body;
         //Validate
         let loggedPlayer = await loginPlayer(email, password);                
         if (loggedPlayer) {
-            let aa = await updatePlayer(loggedPlayer.id, 0, null, null, 1);
+            let aa = await updatePlayer(loggedPlayer.id, 0, null, null, 1, null, socketid);
             // socket.emit('server-send-loginSuccess')
             res.json({
                 status: 'ok',
@@ -84,15 +84,44 @@ router.post('/login', async (req,res) => {
 
 })
 
+router.post('/findInfoByPlayer', async(req,res) => {
+    try {
+        let { name } = req.body;
+        let foundSocket = await findInfoByPlayer(name);
+        if (foundSocket) {
+            res.json({
+                status: 'ok',
+                data: foundSocket,
+                message: `Find socket ${foundSocket} of Player ${name} success`
+            })
+        }
+        else {
+            res.json({
+                status: 'failed',
+                data: {},
+                message: `Find socket Failed`
+            })
+        }
+    }
+    catch(error) {
+        res.json({
+            status: 'failed',
+            data: {},
+            message: `Find socket Failed` + error
+        })
+    }
+
+})
+
 router.post('/update', async(req,res) => {
     
 
     try {
-        let {id, isplaying, name, password, online} = req.body;
+        let {id, isplaying, name, password, online, roomname, socketid} = req.body;
         // console.log(isplaying);
-        let updatedPlayer = await updatePlayer(id, isplaying, name, password, online);
+        let updatedPlayer = await updatePlayer(id, isplaying, name, password, online, roomname, socketid);
         if (!updatedPlayer) {
-            socket.emit('server-send-updatePlayerFail')
+            // socket.emit('server-send-updatePlayerFail')
             res.json({
                 result: 'false',
                 data: {},
@@ -100,7 +129,7 @@ router.post('/update', async(req,res) => {
             })
         }
         else {
-            socket.emit('server-send-updatePlayerSuccess')
+            // socket.emit('server-send-updatePlayerSuccess')
             res.json({
                 
                 result: 'ok',
