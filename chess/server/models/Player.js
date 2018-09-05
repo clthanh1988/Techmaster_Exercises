@@ -76,6 +76,20 @@ export const insertPlayer = async (email, password, name, isplaying, online, roo
     }
 }
 
+export const findPlayerNameById = async (id) => {
+    try {
+        let player = await Player.findById(id);
+        if (!player) {
+            return null;
+        } else {
+            return player.name;
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
+
 export const findPlayerById = async (id) => {
     try {
         var player = await Player.findById(id);
@@ -88,6 +102,7 @@ export const findPlayerById = async (id) => {
         throw error;
     }
 }
+
 export const loginPlayer = async (data) => {
     // console.log(data)
     const {userName,password, socketid} = data

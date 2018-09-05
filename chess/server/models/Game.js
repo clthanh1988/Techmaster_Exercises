@@ -2,7 +2,7 @@ import { sequelize, Op } from '../databases/database';
 import Sequelize from 'sequelize';
 
 import Piece from './Piece';
-import { findPlayerById, findAllPlayers } from './Player';
+import { findPlayerById, findAllPlayers, findPlayerNameById } from './Player';
 
 export const Game = sequelize.define('game', {
     id: {
@@ -26,16 +26,19 @@ export const Game = sequelize.define('game', {
 
 export const createNewGame = async (player1id, player2id) => {
     try {
-        if (!player1id && !player2id) {
+        if (!player1id || !player2id) {
             return null;
         } 
         // console.log(player1);
         // console.log(player2);
-        
+        let player1name = await findPlayerNameById(player1id);
+        let player2name = await findPlayerNameById(player2id);
+        let roomname = player1name + "-" + player2name
+
         let newGame = await Game.create({
             player1id,
             player2id,
-            roomname: player1id + "-" + player2id
+            roomname
         }, {
             fields: ['player1id', 'player2id', 'roomname']
         });

@@ -141,6 +141,8 @@ router.post('/createGame', async (req,res) => {
 router.post('/startGame', async (req,res) => {   
     try {
         let { player1id, player2id } = req.body;
+        console.log(player1id);
+        console.log(player2id)
         // const roomname = player1id + '-' + player2id;
         // let thisGame = await getGameFromPlayers(player1id, player2id);
         if (!player1id || !player2id) {
