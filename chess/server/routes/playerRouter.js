@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-import { Player, insertPlayer, findPlayerById, loginPlayer, getAvailablePlayers, updatePlayer, findAllPlayers, findInfoByPlayer } from '../models/Player';
+import { Player, insertPlayer, findPlayerById, loginPlayer, logoutPlayer, getAvailablePlayers, updatePlayer, findAllPlayers, findInfoByPlayer } from '../models/Player';
 import { Game, createNewGame  } from '../models/Game';
 import { Piece, addNewPiece, create32Pieces, updatePiece, pieceAattackPieceB  } from '../models/Piece';
 
@@ -79,6 +79,39 @@ router.post('/login', async (req,res) => {
             status: 'false',
             data: {},
             message: "Login Player failed. error "+error
+        })
+    }
+
+})
+
+router.post('/logout', async (req,res) => {   
+    try {
+        let { email, socketid } = req.body;
+        //Validate
+        console.log(email, socketid)
+        let loggedPlayer = await logoutPlayer(email, socketid);        
+        if (loggedPlayer) {
+            let aa = await updatePlayer(loggedPlayer.id, 0, null, null, 0, null, socketid);
+            // socket.emit('server-send-loginSuccess')
+            console.log(aa);
+            res.json({
+                status: 'ok',
+                data: aa,
+                message: "Logout Player success"
+            })
+        } else {
+            // socket.emit('server-send-loginFail')
+            res.json({
+                status: 'false',
+                data: {},
+                message: "Logout Player failed"
+            })    
+        }                
+    } catch(error) {
+        res.json({
+            status: 'false',
+            data: {},
+            message: "Logout Player failed. error "+error
         })
     }
 

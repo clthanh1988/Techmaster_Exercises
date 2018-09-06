@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 import { Player, insertPlayer, findPlayerById, updatePlayer, loginPlayer  } from '../models/Player';
-import { Game, createNewGame, getAvailableGames, updateGame, getGameFromPlayers  } from '../models/Game';
+import { Game, createNewGame, getAvailableGames, updateGame, getGameFromPlayers, findNamesOfPlayersByRoomname  } from '../models/Game';
 import { Piece, addNewPiece, create32Pieces, updatePiece, getPieceByPosition, getPieceByType, getAllPiecesPosition } from '../models/Piece';
 
 
@@ -142,7 +142,7 @@ router.post('/startGame', async (req,res) => {
     try {
         let { player1id, player2id } = req.body;
         console.log(player1id);
-        console.log(player2id)
+        console.log(player2id);
         // const roomname = player1id + '-' + player2id;
         // let thisGame = await getGameFromPlayers(player1id, player2id);
         if (!player1id || !player2id) {
@@ -193,6 +193,34 @@ router.post('/startGame', async (req,res) => {
 
 })
 
+router.post('/findNamesOfPlayersByRoomname', async(req,res) => {
+    try {
+        let {roomname} = req.body;
+        if (!roomname) {
+            res.json({
+                status: 'failed',
+                data: {},
+                message: 'Find names failed'
+            })
+        }
+        else {
+            let foundNames = await findNamesOfPlayersByRoomname(roomname);
+            res.json({
+                status: 'ok',
+                data: foundNames,
+                message: 'Find names failed'
+            })
+        }
+    } 
+    catch(err) {
+        res.json({
+            status: 'ok',
+            data: foundNames,
+            message: 'Find names failed'+ err
+        })
+    }
+})
+
 
 
 router.get('/getAvailableGames', async (req,res) => {   
@@ -227,10 +255,10 @@ router.get('/getAvailableGames', async (req,res) => {
 
 router.post('/move', async (req,res) => {   
     try {
-        let { gameid, playerid, piecenumber, dest } = req.body;
+        let { roomname, playerid, piecenumber, dest } = req.body;
         //Validate
         
-        let foundPiece = await getPieceByPosition(gameid, dest);
+        let foundPiece = await getPieceByPosition(roomname, dest);
     
         if (foundPiece) {            
             // console.log(`foundPiece.playerid = ${foundPiece.playerid}`);
@@ -246,16 +274,16 @@ router.post('/move', async (req,res) => {
             }
             // console.log(`foundPiece = ${foundPiece}`);
             else if(foundPiece.playerid !== playerid) {
-                //await pieceAattackPieceB(gameid, piecenumber, foundPiece.piecenumber, dest);
-                // let thisTypeOfPiece = await getPieceByType(gameid, piecenumber);
+                //await pieceAattackPieceB(roomname, piecenumber, foundPiece.piecenumber, dest);
+                // let thisTypeOfPiece = await getPieceByType(roomname, piecenumber);
 
                 // switch (thisTypeOfPiece) {
 
                 // }
 
-                let result1 = await updatePiece(piecenumber, gameid, null, dest);
-                let result2 = await updatePiece(foundPiece.piecenumber, gameid, 1, dest);
-                let allPiecesPosition = await getAllPiecesPosition(gameid);
+                let result1 = await updatePiece(piecenumber, roomname, null, dest);
+                let result2 = await updatePiece(foundPiece.piecenumber, roomname, 1, dest);
+                let allPiecesPosition = await getAllPiecesPosition(roomname);
                 // EMIT
                 // console.log(`foundPiece = ${JSON.stringify(foundPiece)}`);
                 // io.sockets.emit('server-send-moveSuccess')
@@ -269,7 +297,7 @@ router.post('/move', async (req,res) => {
             
         }
         else {
-            let result = await updatePiece(piecenumber, gameid, null, dest);
+            let result = await updatePiece(piecenumber, roomname, null, dest);
             // io.sockets.emit('server-send-moveSuccess')
                 res.json({
                     status: 'ok',

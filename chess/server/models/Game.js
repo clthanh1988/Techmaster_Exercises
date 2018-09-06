@@ -103,6 +103,27 @@ export const updateGame = async ( newplayer1id, newplayer2id, newroomname) => {
     }
 }
 
+export const findNamesOfPlayersByRoomname = async(roomname) => {
+    try {
+        let thisRoom = await Game.findOne({
+            where: {
+                roomname
+            }
+        })
+        let player1id = thisRoom.player1id;
+        let player2id = thisRoom.player2id;
+        let player1name = await findPlayerNameById(player1id);
+        let player2name = await findPlayerNameById(player2id);
+        let playersArr = [player1name, player2name];
+        return playersArr;
+
+    }
+    catch(err) {
+        throw err
+    }
+
+}
+
 // export const getGameFromPlayers = async(player1id, player2id) => {
 //     try {
 //         let foundGame = await Game.findOne({

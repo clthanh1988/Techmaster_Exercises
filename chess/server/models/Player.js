@@ -137,7 +137,39 @@ export const loginPlayer = async (data) => {
     }
 }
 
+export const logoutPlayer = async (data) => {
+    // console.log(data)
+    const {userName, socketid} = data
+    try {
+        // console.log(`email: ${email}`);
+        // console.log(`password: ${password}`);
+        // console.log(`socketid: ${socketid}`);
+        const updateSocket = await Player.update({
+            socketid
+        }, {
+            where: {
+                userName
+            }
+        })
+        let thisPlayer = await Player.findOne({
+            attributes: ["id", "email", "password", 'name', 'online', 'roomname', 'socketid'],
+            where: {
+                userName,
+                
+            }
+        });
+        // console.log(updateSocket)
+        // console.log(`allPlayers = ${allPlayers}`)
 
+        if (thisPlayer) {
+            return thisPlayer;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        throw error;
+    }
+}
 
 
 export const findAllPlayers = async () => {
