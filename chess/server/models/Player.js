@@ -89,6 +89,23 @@ export const findPlayerNameById = async (id) => {
     }
 }
 
+export const getCurrentInfoByPlayer = async (email) => {
+    try {
+        let player = await Player.findOne({
+            where: {
+                email
+            }
+        });
+        if (!player) {
+            return null;
+        } else {
+            return player;
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
 
 export const findPlayerById = async (id) => {
     try {
@@ -213,11 +230,11 @@ export const getAvailablePlayers = async () => {
     }
 }
 
-export const findInfoByPlayer = async(name) => {
+export const findInfoByPlayer = async(email) => {
     try {
         let foundInfo = await Player.findOne({
             where: {
-                name
+                email
             }
         })
         // console.log(foundInfo);

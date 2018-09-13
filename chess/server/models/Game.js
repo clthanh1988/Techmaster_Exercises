@@ -112,10 +112,10 @@ export const findNamesOfPlayersByRoomname = async(roomname) => {
         })
         let player1id = thisRoom.player1id;
         let player2id = thisRoom.player2id;
-        let player1name = await findPlayerNameById(player1id);
-        let player2name = await findPlayerNameById(player2id);
-        let playersArr = [player1name, player2name];
-        return playersArr;
+        let player1info = await findPlayerById(player1id);
+        let player2info = await findPlayerById(player2id);
+        let players = {player1name:{player1info}, player2name:{player2info}};
+        return players;
 
     }
     catch(err) {
@@ -124,18 +124,3 @@ export const findNamesOfPlayersByRoomname = async(roomname) => {
 
 }
 
-// export const getGameFromPlayers = async(player1id, player2id) => {
-//     try {
-//         let foundGame = await Game.findOne({
-//             where: {
-//                 player1id,
-//                 player2id
-//             }
-//         })
-//         return foundGame
-//     }
-//     catch(error) {
-//         return null
-//     }
-
-// }

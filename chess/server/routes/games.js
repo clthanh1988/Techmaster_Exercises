@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-import { Player, insertPlayer, findPlayerById, updatePlayer, loginPlayer  } from '../models/Player';
+import { Player, insertPlayer, findPlayerById, updatePlayer, loginPlayer, getCurrentInfoByPlayer  } from '../models/Player';
 import { Game, createNewGame, getAvailableGames, updateGame, getGameFromPlayers, findNamesOfPlayersByRoomname  } from '../models/Game';
 import { Piece, addNewPiece, create32Pieces, updatePiece, getPieceByPosition, getPieceByType, getAllPiecesPosition } from '../models/Piece';
 
@@ -54,92 +54,9 @@ router.post('/createGame', async (req,res) => {
 
 })
 
-// router.post('/challenge', async(req,res) => {
-//     try {
-//         let {challenger , target} = req.body;
-        
-
-//         if (target.accepted) {
-
-//             res.json({
-//                 status: 'ok',
-//                 data: ,
-//                 message: 'Player2 accepted'
-//             })
-//         }
-//         else {
-
-//             res.json({
-//                 status: 'failed',
-//                 data: ,
-//                 message: 'Player2 declined'
-//             })
-//         }
-
-//     }
-//     catch(error) {
-//         res.json({
-//             status: 'failed',
-//             data: ,
-//             message: 'Player2 declined' + error
-//         })
-//     }
-// })
-
-// router.post('/startGame', async (req,res) => {   
-//     try {
-//         let { id, player1id, player2id, roomname } = req.body;
-        
-//         if (player1id < 0 || player2id < 0) {
-//             // socket.emit('server-send-startGameFail')
-//             res.json({
-//                 status: 'failed',
-//                 data: {},
-//                 message: "Cannot start a new game. all players ID must have"
-//             })
-//         } 
-//         else {
-            
-//             let newGame = await updateGame(id, player1id, player2id, roomname);
-            
-//             await updatePlayer(player1id, 1, null, null, null);
-            
-//             await updatePlayer(player2id, 1, null, null, null);
-            
-//             await create32Pieces(player1id, player2id, id);
-            
-//             if (newGame) {
-//                 socket.emit('server-send-startGameSuccess')
-//                 res.json({
-//                     status: 'ok',
-//                     data: newGame,
-//                     message: 'Start game success'
-//                 })
-//             } 
-//             else {
-//                 socket.emit('server-send-startGameFail')
-//                 res.json({
-//                     status: 'false',
-//                     data: {},
-//                     message: "Cannot start a game!"
-//                 })    
-//             }    
-//         }
-        
-        
-                    
-//     } catch(error) {
-//         res.json({
-//             status: 'false',
-//             data: {},
-//             message: "Cannot start a game" +error
-//         })
-//     }
-
-// })
-
 router.post('/startGame', async (req,res) => {   
     try {
+        console.log(`ee`);
         let { player1id, player2id } = req.body;
         console.log(player1id);
         console.log(player2id);
@@ -208,14 +125,14 @@ router.post('/findNamesOfPlayersByRoomname', async(req,res) => {
             res.json({
                 status: 'ok',
                 data: foundNames,
-                message: 'Find names failed'
+                message: 'Find names success'
             })
         }
     } 
     catch(err) {
         res.json({
             status: 'ok',
-            data: foundNames,
+            data: {},
             message: 'Find names failed'+ err
         })
     }
@@ -250,6 +167,34 @@ router.get('/getAvailableGames', async (req,res) => {
         })
     }
 
+})
+
+router.post('/getCurrentInfoByPlayer', async(req,res) => {
+    try {
+        let {email} = req.body;
+        if (!email) {
+            res.json({
+                status: 'failed',
+                data: {},
+                message: 'Find info failed'
+            })
+        }
+        else {
+            let foundInfo = await getCurrentInfoByPlayer(email);
+            res.json({
+                status: 'ok',
+                data: foundInfo,
+                message: 'Find info success'
+            })
+        }
+    } 
+    catch(err) {
+        res.json({
+            status: 'ok',
+            data: {},
+            message: 'Find info failed'+ err
+        })
+    }
 })
 
 
@@ -317,42 +262,4 @@ router.post('/move', async (req,res) => {
     }   
 })
 
-// const endGame = async() => {
-
-
-// }
-
-
-
-/*
-router.post('/createRoom', async (req,res,next) => {
-    let {player1Id} = req.body;
-    try {
-        res.json({
-            status: 'Please wait!!! Finding opponent ...'
-        })
-        await player2Id to join
-    }
-    catch(error) {
-        res.json({
-            status: 'False!!! Cannot find opponent !!!'
-        })
-        return;
-    }
-    let player2Id = find()
-})
-
-router.post('/joinRoom', async (req,res,next) => {
-    let {player2Id} = req.body;
-    try {
-
-    }
-    catch(error) {
-        
-    }
-
-
-
-})
-*/
 module.exports = router;

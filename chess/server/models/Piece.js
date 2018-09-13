@@ -38,30 +38,30 @@ export const addNewPiece = async(piecenumber, typeofpiece, playerid, src, isdead
 }
 
 export const create32Pieces = async(player1id, player2id, roomname) => {
-    await addNewPiece(0, "R", player2id, 0, 0, roomname)
-    await addNewPiece(1, 'N', player2id, 1, 0, roomname)
-    await addNewPiece(2, 'B', player2id, 2, 0, roomname) 
-    await addNewPiece(3, 'Q', player2id, 3, 0, roomname) 
-    await addNewPiece(4, 'K', player2id, 4, 0, roomname) 
-    await addNewPiece(5, 'B', player2id, 5, 0, roomname) 
-    await addNewPiece(6, 'N', player2id, 6, 0, roomname) 
-    await addNewPiece(7, 'R', player2id, 7, 0, roomname)
+    await addNewPiece(0, "R", player1id, 0, 0, roomname)
+    await addNewPiece(1, 'N', player1id, 1, 0, roomname)
+    await addNewPiece(2, 'B', player1id, 2, 0, roomname) 
+    await addNewPiece(3, 'Q', player1id, 3, 0, roomname) 
+    await addNewPiece(4, 'K', player1id, 4, 0, roomname) 
+    await addNewPiece(5, 'B', player1id, 5, 0, roomname) 
+    await addNewPiece(6, 'N', player1id, 6, 0, roomname) 
+    await addNewPiece(7, 'R', player1id, 7, 0, roomname)
 
     for (let i = 8; i < 16; i++) {
-        await addNewPiece(i, 'P', player2id, i, 0, roomname)
+        await addNewPiece(i, 'P', player1id, i, 0, roomname)
     }
 
-    await addNewPiece(56, 'R', player1id, 56, 0, roomname) 
-    await addNewPiece(57, 'N', player1id, 57, 0, roomname) 
-    await addNewPiece(58, 'B', player1id, 58, 0, roomname) 
-    await addNewPiece(59, 'Q', player1id, 59, 0, roomname) 
-    await addNewPiece(60, 'K', player1id, 60, 0, roomname) 
-    await addNewPiece(61, 'B', player1id, 61, 0, roomname) 
-    await addNewPiece(62, 'N', player1id, 62, 0, roomname) 
-    await addNewPiece(63, 'R', player1id, 63, 0, roomname)
+    await addNewPiece(56, 'R', player2id, 56, 0, roomname) 
+    await addNewPiece(57, 'N', player2id, 57, 0, roomname) 
+    await addNewPiece(58, 'B', player2id, 58, 0, roomname) 
+    await addNewPiece(59, 'Q', player2id, 59, 0, roomname) 
+    await addNewPiece(60, 'K', player2id, 60, 0, roomname) 
+    await addNewPiece(61, 'B', player2id, 61, 0, roomname) 
+    await addNewPiece(62, 'N', player2id, 62, 0, roomname) 
+    await addNewPiece(63, 'R', player2id, 63, 0, roomname)
 
     for (let i = 48; i < 56; i++) {
-        await addNewPiece(i, 'P', player1id, i, 0, roomname)
+        await addNewPiece(i, 'P', player2id, i, 0, roomname)
     }
 }
 

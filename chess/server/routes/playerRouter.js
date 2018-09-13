@@ -189,7 +189,7 @@ router.get('/getAvailablePlayers', async (req,res) => {
         availablePlayers.forEach(player => {
             mapPlayers[player.name] = player;
         })
-        console.log(`mapPlayers = ${JSON.stringify(mapPlayers)}`);
+        // console.log(`mapPlayers = ${JSON.stringify(mapPlayers)}`);
         if(!availablePlayers) {
             res.json({
                 result: 'false',
